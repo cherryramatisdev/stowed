@@ -11,10 +11,52 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
+  -- File browser
   use {
     'stevearc/oil.nvim',
     config = function() require('oil').setup() end
   }
+
+  -- Andrew radev
+  use {
+    'AndrewRadev/sideways.vim',
+    requires = {
+      'AndrewRadev/switch.vim',
+      'AndrewRadev/splitjoin.vim',
+    },
+    config = function()
+      vim.g.splitjoin_split_mapping = ''
+      vim.g.splitjoin_join_mapping = ''
+      vim.keymap.set('n', 'gk', ':SplitjoinJoin<cr>')
+      vim.keymap.set('n', 'gj', ':SplitjoinSplit<cr>')
+      vim.keymap.set('n', '<c-h>', ':SidewaysLeft<cr>')
+      vim.keymap.set('n', '<c-l>', ':SidewaysRight<cr>')
+    end
+  }
+
+  -- Git client
+  use { 'kdheepak/lazygit.nvim', config = function()
+    vim.keymap.set('n', '<leader>g', ':LazyGit<cr>')
+  end }
+
+  -- Terminal
+  use { "akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup {
+      open_mapping = [[<c-q>]],
+      hide_numbers = true, -- hide the number column in toggleterm buffers
+      autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
+      shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+      start_in_insert = true,
+      insert_mappings = true, -- whether or not the open mapping applies in insert mode
+      terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+      persist_size = true,
+      persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
+      direction = 'float',
+      close_on_exit = true, -- close the terminal window when the process exits
+      shell = vim.o.shell, -- change the default shell
+      auto_scroll = true, -- automatically scroll to the bottom on terminal output
+    }
+  end }
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -98,6 +140,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
+
+vim.fn.setenv('GIT_EDITOR', [[nvr -cc tabnew --remote-wait +'set bufhidden=wipe']])
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -403,6 +447,32 @@ require('fidget').setup()
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+
+-- <c-k> is my expansion key
+-- this will expand the current item or jump to the next item within the snippet.
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
+  if luasnip.expand_or_jumpable() then
+    luasnip.expand_or_jump()
+  end
+end, { silent = true })
+
+-- <c-j> is my jump backwards key.
+-- this always moves to the previous item within the snippet
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
+  if luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  end
+end, { silent = true })
+
+-- <c-l> is selecting within a list of options.
+-- This is useful for choice nodes (introduced in the forthcoming episode 2)
+vim.keymap.set("i", "<c-l>", function()
+  if luasnip.choice_active() then
+    luasnip.change_choice(1)
+  end
+end)
+
+vim.keymap.set("i", "<c-u>", require "luasnip.extras.select_choice")
 
 cmp.setup {
   snippet = {
