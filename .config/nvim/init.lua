@@ -81,20 +81,28 @@ require('packer').startup(function(use)
   }
 
   use { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    requires = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-      'jay-babu/mason-null-ls.nvim',
-      'jose-elias-alvarez/null-ls.nvim',
+      'neovim/nvim-lspconfig',
+      requires = {
+          -- Automatically install LSPs to stdpath for neovim
+          'williamboman/mason.nvim',
+          'williamboman/mason-lspconfig.nvim',
+          'jay-babu/mason-null-ls.nvim',
+          'jose-elias-alvarez/null-ls.nvim',
 
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
+          -- Useful status updates for LSP
+          'j-hui/fidget.nvim',
 
-      -- Additional lua configuration, makes nvim stuff amazing
-      'folke/neodev.nvim',
-    },
+          -- Additional lua configuration, makes nvim stuff amazing
+          'folke/neodev.nvim',
+
+          -- Types as virtual text
+          'jubnzv/virtual-types.nvim',
+
+          -- nice winbar
+          "utilyre/barbecue.nvim",
+          "SmiteshP/nvim-navic",
+          "nvim-tree/nvim-web-devicons"
+      },
   }
 
   use { -- Autocompletion
