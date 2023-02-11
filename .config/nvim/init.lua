@@ -228,6 +228,11 @@ vim.g.maplocalleader = ' '
 -- next greatest remap ever
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- Navigate through tabs
+vim.keymap.set("n", "<Tab>", "gt")
+vim.keymap.set("n", "<S-Tab>", "gT")
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 
