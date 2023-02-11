@@ -229,14 +229,18 @@ require('indent_blankline').setup {
 -- Gitsigns
 -- See `:help gitsigns.txt`
 require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
+    signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+    },
 }
+vim.keymap.set('n', ']g', ':Gitsigns next_hunk<cr>')
+vim.keymap.set('n', '[g', ':Gitsigns prev_hunk<cr>')
+vim.keymap.set('n', '<leader>gs', ':Gitsigns stage_hunk<cr>')
+vim.keymap.set('n', '<leader>gr', ':Gitsigns reset_hunk<cr>')
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
