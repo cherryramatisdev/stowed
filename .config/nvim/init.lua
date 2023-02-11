@@ -95,9 +95,6 @@ require('packer').startup(function(use)
           -- Additional lua configuration, makes nvim stuff amazing
           'folke/neodev.nvim',
 
-          -- Types as virtual text
-          'jubnzv/virtual-types.nvim',
-
           -- nice winbar
           "utilyre/barbecue.nvim",
           "SmiteshP/nvim-navic",
