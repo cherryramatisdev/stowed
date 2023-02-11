@@ -128,7 +128,14 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use({
+      'rose-pine/neovim',
+      as = 'rose-pine',
+      config = function()
+        require("rose-pine").setup()
+        vim.cmd('colorscheme rose-pine')
+      end
+  })
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
