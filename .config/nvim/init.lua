@@ -544,7 +544,6 @@ require('nvim-treesitter.configs').setup {
             },
         },
     },
-  },
 }
 
 -- Diagnostic keymaps
@@ -575,6 +574,7 @@ local on_attach = function(_, bufnr)
   end
 
   vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.lsp.tagfunc')
+  vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
   map('rn', vim.lsp.buf.rename, '[R]e[n]ame')
   map('ga', vim.lsp.buf.code_action, '[C]ode [A]ction')
