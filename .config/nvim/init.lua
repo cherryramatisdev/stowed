@@ -225,6 +225,9 @@ vim.o.laststatus = 3
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- next greatest remap ever
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 
