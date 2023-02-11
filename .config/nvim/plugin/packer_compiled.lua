@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["barbecue.nvim"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/barbecue.nvim",
+    url = "https://github.com/utilyre/barbecue.nvim"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
@@ -93,6 +98,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  ["committia.vim"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/committia.vim",
+    url = "https://github.com/rhysd/committia.vim"
+  },
+  ["dressing.nvim"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/dressing.nvim",
+    url = "https://github.com/stevearc/dressing.nvim"
   },
   ["fidget.nvim"] = {
     loaded = true,
@@ -108,12 +123,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
-  },
-  ["lazygit.nvim"] = {
-    config = { "\27LJ\2\nO\0\0\5\0\6\0\b6\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0'\4\5\0B\0\4\1K\0\1\0\17:LazyGit<cr>\14<leader>g\6n\bset\vkeymap\bvim\0" },
-    loaded = true,
-    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
-    url = "https://github.com/kdheepak/lazygit.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -140,6 +149,21 @@ _G.packer_plugins = {
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/neodev.nvim",
     url = "https://github.com/folke/neodev.nvim"
   },
+  neotest = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/neotest",
+    url = "https://github.com/nvim-neotest/neotest"
+  },
+  ["neotest-jest"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/neotest-jest",
+    url = "https://github.com/haydenmeade/neotest-jest"
+  },
+  ["neotest-rspec"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/neotest-rspec",
+    url = "https://github.com/olimorris/neotest-rspec"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -155,6 +179,17 @@ _G.packer_plugins = {
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-navic"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/nvim-navic",
+    url = "https://github.com/SmiteshP/nvim-navic"
+  },
+  ["nvim-surround"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0" },
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -167,16 +202,16 @@ _G.packer_plugins = {
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
   },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
   ["oil.nvim"] = {
     config = { "\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\boil\frequire\0" },
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/oil.nvim",
     url = "https://github.com/stevearc/oil.nvim"
-  },
-  ["onedark.nvim"] = {
-    loaded = true,
-    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/onedark.nvim",
-    url = "https://github.com/navarasu/onedark.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -187,6 +222,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["rose-pine"] = {
+    config = { "\27LJ\2\ne\0\0\3\0\6\0\n6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0016\0\3\0009\0\4\0'\2\5\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\nsetup\14rose-pine\frequire\0" },
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/rose-pine",
+    url = "https://github.com/rose-pine/neovim"
   },
   ["sideways.vim"] = {
     config = { "\27LJ\2\nｼ\2\0\0\5\0\16\0%6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\3\0=\1\4\0006\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\b\0'\4\t\0B\0\4\0016\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\n\0'\4\v\0B\0\4\0016\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\f\0'\4\r\0B\0\4\0016\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\14\0'\4\15\0B\0\4\1K\0\1\0\23:SidewaysRight<cr>\n<c-l>\22:SidewaysLeft<cr>\n<c-h>\24:SplitjoinSplit<cr>\agj\23:SplitjoinJoin<cr>\agk\6n\bset\vkeymap\27splitjoin_join_mapping\5\28splitjoin_split_mapping\6g\bvim\0" },
@@ -218,10 +259,15 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["toggleterm.nvim"] = {
-    config = { "\27LJ\2\n表2\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0009\3\5\0039\3\6\3=\3\6\2B\0\2\1K\0\1\0\nshell\6o\bvim\1\0\f\20start_in_insert\2\20shade_terminals\2\14autochdir\1\17hide_numbers\2\17open_mapping\n<c-q>\16auto_scroll\2\18close_on_exit\2\14direction\nfloat\17persist_mode\2\17persist_size\2\22terminal_mappings\2\20insert_mappings\2\nsetup\15toggleterm\frequire\0" },
+    config = { "\27LJ\2\n表2\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0009\3\5\0039\3\6\3=\3\6\2B\0\2\1K\0\1\0\nshell\6o\bvim\1\0\f\17persist_size\2\22terminal_mappings\2\20insert_mappings\2\20start_in_insert\2\20shade_terminals\2\14autochdir\1\17hide_numbers\2\17open_mapping\n<c-q>\16auto_scroll\2\18close_on_exit\2\14direction\nfloat\17persist_mode\2\nsetup\15toggleterm\frequire\0" },
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
+  },
+  ["vim-crystal"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/vim-crystal",
+    url = "https://github.com/vim-crystal/vim-crystal"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -237,6 +283,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
+  },
+  ["virtual-types.nvim"] = {
+    loaded = true,
+    path = "/Users/cherryramatis/.local/share/nvim/site/pack/packer/start/virtual-types.nvim",
+    url = "https://github.com/jubnzv/virtual-types.nvim"
   }
 }
 
@@ -245,13 +296,17 @@ time([[Defining packer_plugins]], false)
 time([[Config for sideways.vim]], true)
 try_loadstring("\27LJ\2\nｼ\2\0\0\5\0\16\0%6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\3\0=\1\4\0006\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\b\0'\4\t\0B\0\4\0016\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\n\0'\4\v\0B\0\4\0016\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\f\0'\4\r\0B\0\4\0016\0\0\0009\0\5\0009\0\6\0'\2\a\0'\3\14\0'\4\15\0B\0\4\1K\0\1\0\23:SidewaysRight<cr>\n<c-l>\22:SidewaysLeft<cr>\n<c-h>\24:SplitjoinSplit<cr>\agj\23:SplitjoinJoin<cr>\agk\6n\bset\vkeymap\27splitjoin_join_mapping\5\28splitjoin_split_mapping\6g\bvim\0", "config", "sideways.vim")
 time([[Config for sideways.vim]], false)
--- Config for: lazygit.nvim
-time([[Config for lazygit.nvim]], true)
-try_loadstring("\27LJ\2\nO\0\0\5\0\6\0\b6\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0'\4\5\0B\0\4\1K\0\1\0\17:LazyGit<cr>\14<leader>g\6n\bset\vkeymap\bvim\0", "config", "lazygit.nvim")
-time([[Config for lazygit.nvim]], false)
+-- Config for: rose-pine
+time([[Config for rose-pine]], true)
+try_loadstring("\27LJ\2\ne\0\0\3\0\6\0\n6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0016\0\3\0009\0\4\0'\2\5\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\nsetup\14rose-pine\frequire\0", "config", "rose-pine")
+time([[Config for rose-pine]], false)
+-- Config for: nvim-surround
+time([[Config for nvim-surround]], true)
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
+time([[Config for nvim-surround]], false)
 -- Config for: toggleterm.nvim
 time([[Config for toggleterm.nvim]], true)
-try_loadstring("\27LJ\2\n表2\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0009\3\5\0039\3\6\3=\3\6\2B\0\2\1K\0\1\0\nshell\6o\bvim\1\0\f\20start_in_insert\2\20shade_terminals\2\14autochdir\1\17hide_numbers\2\17open_mapping\n<c-q>\16auto_scroll\2\18close_on_exit\2\14direction\nfloat\17persist_mode\2\17persist_size\2\22terminal_mappings\2\20insert_mappings\2\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
+try_loadstring("\27LJ\2\n表2\0\0\4\0\a\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0009\3\5\0039\3\6\3=\3\6\2B\0\2\1K\0\1\0\nshell\6o\bvim\1\0\f\17persist_size\2\22terminal_mappings\2\20insert_mappings\2\20start_in_insert\2\20shade_terminals\2\14autochdir\1\17hide_numbers\2\17open_mapping\n<c-q>\16auto_scroll\2\18close_on_exit\2\14direction\nfloat\17persist_mode\2\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
 time([[Config for toggleterm.nvim]], false)
 -- Config for: oil.nvim
 time([[Config for oil.nvim]], true)
