@@ -632,6 +632,9 @@ require("mason-null-ls").setup({
     automatic_setup = false,
 })
 
+-- nice winbar
+require('barbecue').setup()
+
 -- Setup neovim lua configuration
 require('neodev').setup()
 --
