@@ -188,6 +188,10 @@ vim.fn.setenv('GIT_EDITOR', [[nvr -cc tabnew --remote-wait +'set bufhidden=wipe'
 -- Set highlight on search
 vim.o.hlsearch = false
 
+-- Splits in a logical way
+vim.o.splitbelow = true
+vim.o.splitright = true
+
 -- Make line numbers default
 vim.wo.number = true
 
