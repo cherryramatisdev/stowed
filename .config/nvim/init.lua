@@ -575,6 +575,7 @@ local on_attach = function(_, bufnr)
 
   map('rn', vim.lsp.buf.rename, '[R]e[n]ame')
   map('ga', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  map('ga', vim.lsp.buf.code_action, '[C]ode [A]ction', 'x')
 
   map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   map('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
