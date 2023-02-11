@@ -124,6 +124,7 @@ require('packer').startup(function(use)
 
   -- Git related plugins
   use 'tpope/vim-fugitive'
+  use 'rhysd/committia.vim'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
