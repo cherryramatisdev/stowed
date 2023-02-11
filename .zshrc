@@ -29,7 +29,9 @@ alias chmox="chmod +x"
 alias lg=lazygit
 alias vi=nvim
 alias e=exit
-alias c=clear
+alias clear='printf "\e[H\e[2J"'
+alias c='printf "\e[H\e[2J"'
+alias depupdate="yarn upgrade-interactive --latest"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 bindkey -v
