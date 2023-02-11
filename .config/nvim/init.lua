@@ -590,7 +590,9 @@ local on_attach = function(_, bufnr)
   -- Lesser used LSP functionality
   map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-  map('<leader>f', vim.lsp.buf.format, '[F]ormat')
+  map('<leader>f', function()
+    vim.lsp.buf.format({ async = true })
+  end, '[F]ormat')
 end
 
 -- Enable the following language servers
