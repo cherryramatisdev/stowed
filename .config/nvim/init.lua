@@ -19,19 +19,19 @@ require('packer').startup(function(use)
 
   -- Andrew radev
   use {
-    'AndrewRadev/sideways.vim',
-    requires = {
-      'AndrewRadev/switch.vim',
-      'AndrewRadev/splitjoin.vim',
-    },
-    config = function()
-      vim.g.splitjoin_split_mapping = ''
-      vim.g.splitjoin_join_mapping = ''
-      vim.keymap.set('n', 'gk', ':SplitjoinJoin<cr>')
-      vim.keymap.set('n', 'gj', ':SplitjoinSplit<cr>')
-      vim.keymap.set('n', '<c-h>', ':SidewaysLeft<cr>')
-      vim.keymap.set('n', '<c-l>', ':SidewaysRight<cr>')
-    end
+      'AndrewRadev/sideways.vim',
+      requires = {
+          'AndrewRadev/switch.vim',
+          'AndrewRadev/splitjoin.vim',
+      },
+      config = function()
+        vim.g.splitjoin_split_mapping = ''
+        vim.g.splitjoin_join_mapping = ''
+        vim.keymap.set('n', 'gk', ':SplitjoinJoin<cr>')
+        vim.keymap.set('n', 'gj', ':SplitjoinSplit<cr>')
+        vim.keymap.set('n', '<c-h>', ':SidewaysLeft<cr>')
+        vim.keymap.set('n', '<c-l>', ':SidewaysRight<cr>')
+      end
   }
 
   -- Git client
@@ -42,19 +42,19 @@ require('packer').startup(function(use)
   -- Terminal
   use { "akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup {
-      open_mapping = [[<c-q>]],
-      hide_numbers = true, -- hide the number column in toggleterm buffers
-      autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
-      shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
-      start_in_insert = true,
-      insert_mappings = true, -- whether or not the open mapping applies in insert mode
-      terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-      persist_size = true,
-      persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-      direction = 'float',
-      close_on_exit = true, -- close the terminal window when the process exits
-      shell = vim.o.shell, -- change the default shell
-      auto_scroll = true, -- automatically scroll to the bottom on terminal output
+        open_mapping = [[<c-q>]],
+        hide_numbers = true, -- hide the number column in toggleterm buffers
+        autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
+        shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+        start_in_insert = true,
+        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+        persist_size = true,
+        persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
+        direction = 'float',
+        close_on_exit = true, -- close the terminal window when the process exits
+        shell = vim.o.shell, -- change the default shell
+        auto_scroll = true, -- automatically scroll to the bottom on terminal output
     }
   end }
 
@@ -87,20 +87,20 @@ require('packer').startup(function(use)
   }
 
   use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+      'hrsh7th/nvim-cmp',
+      requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
   use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+        pcall(require('nvim-treesitter.install').update { with_sync = true })
+      end,
   }
 
   use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      after = 'nvim-treesitter',
   }
 
   -- Git related plugins
@@ -147,9 +147,9 @@ end
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
+    command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
+    group = packer_group,
+    pattern = vim.fn.expand '$MYVIMRC',
 })
 
 vim.fn.setenv('GIT_EDITOR', [[nvr -cc tabnew --remote-wait +'set bufhidden=wipe']])
@@ -371,8 +371,8 @@ require('Comment').setup()
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
 require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
+    char = '┊',
+    show_trailing_blankline_indent = false,
 }
 
 -- Gitsigns
@@ -394,12 +394,13 @@ vim.keymap.set('n', '<leader>gr', ':Gitsigns reset_hunk<cr>')
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
+    defaults = {
+        mappings = {
+            i = {
+                ['<C-u>'] = false,
+                ['<C-d>'] = false,
+            },
+        },
     },
   },
 }
@@ -412,8 +413,8 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
+      winblend = 10,
+      previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
@@ -426,53 +427,54 @@ vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics, { des
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'go', 'lua', 'tsx', 'rust', 'typescript', 'help', 'vim', 'elixir' },
+    -- Add languages to be installed here that you want installed for treesitter
+    ensure_installed = { 'go', 'lua', 'tsx', 'rust', 'typescript', 'help', 'vim', 'elixir' },
 
-  highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
+    highlight = { enable = true },
+    indent = { enable = true, disable = { 'python' } },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ['aa'] = '@parameter.outer',
+                ['ia'] = '@parameter.inner',
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = '@class.inner',
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                [']m'] = '@function.outer',
+                [']]'] = '@class.outer',
+            },
+            goto_next_end = {
+                [']M'] = '@function.outer',
+                [']['] = '@class.outer',
+            },
+            goto_previous_start = {
+                ['[m'] = '@function.outer',
+                ['[['] = '@class.outer',
+            },
+            goto_previous_end = {
+                ['[M'] = '@function.outer',
+                ['[]'] = '@class.outer',
+            },
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ['<leader>a'] = '@parameter.inner',
+            },
+            swap_previous = {
+                ['<leader>A'] = '@parameter.inner',
+            },
+        },
     },
   },
 }
@@ -550,21 +552,21 @@ local null_ls = require('null-ls')
 
 -- Setup null-ls
 null_ls.setup({
-  sources = {
-    null_ls.builtins.code_actions.eslint,
-    null_ls.builtins.formatting.eslint,
-    null_ls.builtins.diagnostics.eslint,
-    null_ls.builtins.diagnostics.credo,
-    null_ls.builtins.formatting.mix,
-    null_ls.builtins.diagnostics.rubocop,
-    null_ls.builtins.formatting.rubocop,
-  }
+    sources = {
+        null_ls.builtins.code_actions.eslint,
+        null_ls.builtins.formatting.eslint,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.diagnostics.credo,
+        null_ls.builtins.formatting.mix,
+        null_ls.builtins.diagnostics.rubocop,
+        null_ls.builtins.formatting.rubocop,
+    }
 })
 
 require("mason-null-ls").setup({
-  ensure_installed = nil,
-  automatic_installation = true,
-  automatic_setup = false,
+    ensure_installed = nil,
+    automatic_installation = true,
+    automatic_setup = false,
 })
 
 -- Setup neovim lua configuration
@@ -585,13 +587,13 @@ mason_lspconfig.setup {
 }
 
 mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
+    function(server_name)
+      require('lspconfig')[server_name].setup {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = servers[server_name],
+      }
+    end,
 }
 
 -- Turn on lsp status information
@@ -628,18 +630,23 @@ end)
 vim.keymap.set("i", "<c-u>", require "luasnip.extras.select_choice")
 
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-o>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+    },
+    mapping = cmp.mapping.preset.insert {
+        ['<C-d>'] = cmp.mapping.scroll_docs( -4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-o>'] = cmp.mapping.complete(),
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
     },
   },
   sources = {
