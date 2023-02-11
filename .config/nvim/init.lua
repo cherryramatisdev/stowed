@@ -218,6 +218,9 @@ vim.o.termguicolors = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- One statusline to rule them all
+vim.o.laststatus = 3
+
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
