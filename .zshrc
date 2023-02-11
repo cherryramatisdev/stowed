@@ -11,6 +11,11 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export GIT_EDITOR="nvim"
 
+# Setup jira
+export JIRA_TOKEN="$(jq '.token' ~/jiraconfig.json | sed 's/"//g')"
+export JIRA_EMAIL="$(jq '.email' ~/jiraconfig.json | sed 's/"//g')"
+export JIRA_URL="$(jq '.url' ~/jiraconfig.json | sed 's/"//g')"
+
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
