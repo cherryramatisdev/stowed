@@ -46,9 +46,9 @@ require('packer').startup(function(use)
   })
 
   -- Git client
-  use { 'kdheepak/lazygit.nvim', config = function()
-    vim.keymap.set('n', '<leader>g', ':LazyGit<cr>')
-  end }
+  -- use { 'kdheepak/lazygit.nvim', config = function()
+  --   vim.keymap.set('n', '<leader>g', ':LazyGit<cr>')
+  -- end }
 
   -- Terminal
   use { "akinsho/toggleterm.nvim", tag = '*', config = function()
