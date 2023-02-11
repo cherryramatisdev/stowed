@@ -13,8 +13,8 @@ require('packer').startup(function(use)
 
   -- File browser
   use {
-    'stevearc/oil.nvim',
-    config = function() require('oil').setup() end
+      'stevearc/oil.nvim',
+      config = function() require('oil').setup() end
   }
 
   -- Andrew radev
