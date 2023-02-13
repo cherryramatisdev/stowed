@@ -13,4 +13,4 @@ local function git_status_with_commit_bind()
 	require("telescope.builtin").git_status(opts)
 end
 
-vim.keymap.set('n', '<leader>g', git_status_with_commit_bind, { desc = '[G]it status' })
+vim.keymap.set('n', '<leader>gg', git_status_with_commit_bind, { desc = '[G]it status' })
