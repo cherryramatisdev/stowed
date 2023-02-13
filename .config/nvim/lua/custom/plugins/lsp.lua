@@ -16,5 +16,4 @@ return {
   -- nice winbar
   "utilyre/barbecue.nvim",
   "SmiteshP/nvim-navic",
-  "nvim-tree/nvim-web-devicons"
 }
