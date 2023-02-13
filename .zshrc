@@ -34,7 +34,6 @@ alias chmox="chmod +x"
 alias lg=lazygit
 alias vi=nvim
 alias gp="git push origin $(git rev-parse --abbrev-ref HEAD) $@"
-alias gf="git pull origin $(git rev-parse --abbrev-ref HEAD) $@"
 alias e=exit
 alias clear='printf "\e[H\e[2J"'
 alias c='printf "\e[H\e[2J"'
