@@ -1,6 +1,5 @@
 return {
   'tpope/vim-fugitive',
-  'rhysd/committia.vim',
   'tpope/vim-rhubarb',
   {
     'lewis6991/gitsigns.nvim',
