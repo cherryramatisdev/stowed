@@ -27,6 +27,7 @@ return {
         })
       end, { desc = '[/] Fuzzily search in current buffer]' })
 
+      vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = 'Resume last search' })
       vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files, { desc = 'Search Files' })
       vim.keymap.set('n', '<leader>H', require('telescope.builtin').help_tags, { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string,
