@@ -1,11 +1,14 @@
-local actions = require 'telescope.actions'
+local actions  = require 'telescope.actions'
+local Terminal = require('toggleterm.terminal').Terminal
 
 local function git_status_with_commit_bind()
 	local opts = {}
+	local commit = Terminal:new({ cmd = "git commit -v --no-verify", hidden = true })
+
 	opts.attach_mappings = function(prompt_bufnr, map)
 		map('i', '<C-c>', function()
 			actions.close(prompt_bufnr)
-			vim.cmd [[ :TermExec cmd='git commit --no-verify'<cr> ]]
+			commit:open()
 		end)
 		return true
 	end
