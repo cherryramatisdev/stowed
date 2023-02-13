@@ -148,7 +148,8 @@ return {
       })
     end,
   keys = {
-    {'<leader>ga', ':Octo pr create<cr>', 'create a new pr'},
-    {'<leader>gl', ':Octo pr list<cr>', 'list prs'}
+    {'<leader>pc', ':Octo pr create<cr>', 'create a new pr'},
+    {'<leader>pr', ':Octo pr list<cr>', 'list prs'},
+    {'<leader>il', ':Octo issue list<cr>', 'list issues'}
   }
 }
