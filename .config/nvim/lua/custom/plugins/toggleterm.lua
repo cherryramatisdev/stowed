@@ -1,5 +1,5 @@
 return {
-  'akinsho/toggleterm.nvim',
+  "akinsho/toggleterm.nvim",
   config = function()
     require("toggleterm").setup {
       open_mapping = [[<c-q>]],
@@ -11,10 +11,10 @@ return {
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
       persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-      direction = 'float',
+      direction = "float",
       close_on_exit = true, -- close the terminal window when the process exits
       shell = vim.o.shell, -- change the default shell
       auto_scroll = true, -- automatically scroll to the bottom on terminal output
     }
-  end
+  end,
 }

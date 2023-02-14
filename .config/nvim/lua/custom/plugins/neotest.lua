@@ -1,20 +1,21 @@
 return {
   {
-    'nvim-neotest/neotest',
+    "nvim-neotest/neotest",
     config = function()
-      require("neotest").setup({
+      require("neotest").setup {
         quickfix = {
           open = false,
         },
         adapters = {
-          require("neotest-jest"),
-          require("neotest-rspec"),
+          require "neotest-jest",
+          require "neotest-rspec",
+          require "neotest-elixir",
         },
-      })
+      }
     end,
     init = function()
       vim.keymap.set("n", "<leader>tf", function()
-        require("neotest").run.run(vim.fn.expand("%"))
+        require("neotest").run.run(vim.fn.expand "%")
       end, { desc = "run tests on the whole file" })
 
       vim.keymap.set("n", "<leader>tt", function()
@@ -36,8 +37,9 @@ return {
       vim.keymap.set("n", "<leader>to", function()
         require("neotest").output.open()
       end, { desc = "open test output for nearest test" })
-    end
+    end,
   },
-  'olimorris/neotest-rspec',
-  'haydenmeade/neotest-jest'
+  "olimorris/neotest-rspec",
+  "haydenmeade/neotest-jest",
+  "jfpedroza/neotest-elixir",
 }

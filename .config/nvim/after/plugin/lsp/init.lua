@@ -4,65 +4,49 @@
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    tsserver = {},
-    elixirls = {},
-    sumneko_lua = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
+  tsserver = {},
+  elixirls = {
+    dialyzerEnabled = true,
+    fetchDeps = true,
+    enableTestLenses = true,
+    suggestSpecs = true,
+  },
+  sumneko_lua = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
     },
+  },
 }
 
-local null_ls = require('null-ls')
-
--- Setup null-ls
-null_ls.setup({
-    sources = {
-        null_ls.builtins.code_actions.eslint,
-        null_ls.builtins.formatting.eslint,
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.diagnostics.credo,
-        null_ls.builtins.formatting.mix,
-        null_ls.builtins.diagnostics.rubocop,
-        null_ls.builtins.formatting.rubocop,
-    }
-})
-
-require("mason-null-ls").setup({
-    ensure_installed = nil,
-    automatic_installation = true,
-    automatic_setup = false,
-})
-
 -- nice winbar
-require('barbecue').setup()
+require("barbecue").setup()
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+require("neodev").setup()
 --
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- Setup mason so it can manage external tooling
-require('mason').setup()
+require("mason").setup()
 
 -- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+local mason_lspconfig = require "mason-lspconfig"
 
 mason_lspconfig.setup {
-    ensure_installed = vim.tbl_keys(servers),
+  ensure_installed = vim.tbl_keys(servers),
 }
 
 mason_lspconfig.setup_handlers {
-    function(server_name)
-      require('lspconfig')[server_name].setup {
-          capabilities = capabilities,
-          settings = servers[server_name],
-      }
-    end,
+  function(server_name)
+    require("lspconfig")[server_name].setup {
+      capabilities = capabilities,
+      settings = servers[server_name],
+    }
+  end,
 }
 
 -- Turn on lsp status information
-require('fidget').setup()
+require("fidget").setup()

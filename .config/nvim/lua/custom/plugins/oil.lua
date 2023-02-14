@@ -1,7 +1,7 @@
 return {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   config = function()
-    require("oil").setup({
+    require("oil").setup {
       columns = {
         "icon",
       },
@@ -45,7 +45,7 @@ return {
         -- Show files and directories that start with "."
         show_hidden = true,
       },
-    })
+    }
   end,
   keys = {
     { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },

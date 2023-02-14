@@ -1,8 +1,8 @@
 return {
   {
-    'nvim-telescope/telescope.nvim',
+    "nvim-telescope/telescope.nvim",
     config = function()
-      require('telescope').setup {
+      require("telescope").setup {
         defaults = {
           mappings = {
             i = {
@@ -12,37 +12,40 @@ return {
         },
       }
 
-      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require("telescope").load_extension, "fzf")
     end,
     init = function()
-      vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers,
-        { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>/', function()
+      vim.keymap.set(
+        "n",
+        "<leader><space>",
+        require("telescope.builtin").buffers,
+        { desc = "[ ] Find existing buffers" }
+      )
+      vim.keymap.set("n", "<leader>/", function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
-        require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
           winblend = 10,
           previewer = false,
         })
-      end, { desc = '[/] Fuzzily search in current buffer]' })
+      end, { desc = "[/] Fuzzily search in current buffer]" })
 
-      vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = 'Resume last search' })
-      vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files, { desc = 'Search Files' })
-      vim.keymap.set('n', '<leader>H', require('telescope.builtin').help_tags, { desc = '[H]elp' })
-      vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string,
-        { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<C-s>', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-    end
+      vim.keymap.set("n", "<leader>r", require("telescope.builtin").resume, { desc = "Resume last search" })
+      vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Search Files" })
+      vim.keymap.set("n", "<leader>H", require("telescope.builtin").help_tags, { desc = "[H]elp" })
+      vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+      vim.keymap.set("n", "<C-s>", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+      vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+    end,
   },
   {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = vim.fn.executable 'make' == 1
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    cond = vim.fn.executable "make" == 1,
   },
   {
-    'stevearc/dressing.nvim',
+    "stevearc/dressing.nvim",
     config = function()
-      require('dressing').setup({
+      require("dressing").setup {
         input = {
           -- Set to false to disable the vim.ui.input implementation
           enabled = true,
@@ -133,16 +136,16 @@ return {
             mappings = {
               ["<Esc>"] = "Close",
               ["<CR>"] = "Confirm",
-},
+            },
           },
 
           -- Used to override format_item. See :help dressing-format
           format_item_override = {},
 
--- see :help dressing_get_config
-get_config = nil,
-},
-})
-        end
-},
+          -- see :help dressing_get_config
+          get_config = nil,
+        },
+      }
+    end,
+  },
 }
