@@ -12,14 +12,10 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-if has('nvim')
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'jose-elias-alvarez/null-ls.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter'
-else
-  Plug 'dense-analysis/ale'
-end
 Plug 'justinmk/vim-dirvish'
+Plug 'morhetz/gruvbox'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Syntax
 if !has('nvim')
@@ -37,6 +33,7 @@ nnoremap <C-p> :FZF<cr>
 nnoremap <C-s> :Rg<cr>
 
 " Tpope
+Plug 'LnL7/vim-nix'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-fugitive'
@@ -66,6 +63,8 @@ call plug#end()
 " Turn on syntax highlighting
 syntax on
 
+colorscheme gruvbox
+
 " For plugins to load correctly
 filetype plugin indent on
 
@@ -74,11 +73,15 @@ let mapleader = " "
 " Security
 set modelines=0
 
+set re=2
+
 set splitright splitbelow
 
 " Show line numbers
 set number
 set relativenumber
+
+set noswapfile
 
 " Show file stats
 set ruler
@@ -161,146 +164,134 @@ inoremap <C-f> <C-x><C-f>
 nnoremap <Tab> :tabn<cr>
 nnoremap <S-Tab> :tabp<cr>
 
+" ________________ COC.NVIM ________
+"
+"
+" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
+" utf-8 byte sequence
+set encoding=utf-8
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <c-space> to trigger completion
 if has('nvim')
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the four listed parsers should always be installed)
-  ensure_installed = { "tsx", "lua", "vim", "help", "typescript", "elixir", "html" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
+  inoremap <silent><expr> <c-o> coc#refresh()
+else
+  inoremap <silent><expr> <c-o> coc#refresh()
 endif
 
-if has('nvim')
-lua << EOF
-    local null_ls = require("null-ls")
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
-    vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = {'*.ts', '*.tsx', '*.ex', '*.exs', '*.heex', '*.rb'},
-      callback = function()
-        null_ls.setup({
-            sources = {
-                null_ls.builtins.diagnostics.eslint,
-                null_ls.builtins.formatting.eslint,
-                null_ls.builtins.diagnostics.rubocop,
-                null_ls.builtins.formatting.rubocop,
-                null_ls.builtins.diagnostics.credo,
-                null_ls.builtins.formatting.mix
-            },
-        })
-      end
-    })
+" GoTo code navigation
+set tagfunc=CocTagFunc
+" nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gT <Plug>(coc-type-definition)
+nmap <silent> gI <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-    vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = {'*.ts', '*.tsx'},
-      callback = function()
-        vim.lsp.start({
-          name = 'typescript-language-server',
-          cmd = {'typescript-language-server', '--stdio'},
-          root_dir = vim.fs.dirname(vim.fs.find({'package.json'}, { upward = true })[1]),
-        })
-      end,
-    })
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-    vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = {'*.rb'},
-      callback = function()
-        vim.lsp.start({
-          name = 'solargraph',
-          cmd = {'bundle', 'exec', 'solargraph', 'stdio'},
-          root_dir = vim.fs.dirname(vim.fs.find({'Gemfile'}, { upward = true })[1]),
-        })
-      end,
-    })
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
-    vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = {'*.ex', '*.exs', '*.heex'},
-      callback = function()
-        vim.lsp.start({
-          name = 'elixir-ls',
-          cmd = {vim.fn.expand('~/Packages/elixir-ls/rel/language_server.sh')},
-          root_dir = vim.fs.dirname(vim.fs.find({'mix.exs'}, { upward = true })[1]),
-        })
-      end,
-    })
+" Symbol renaming
+nmap rn <Plug>(coc-rename)
 
-    vim.api.nvim_create_autocmd('LspAttach', {
-      callback = function(args)
-        vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-        vim.bo[args.buf].tagfunc = "v:lua.vim.lsp.tagfunc"
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
-        vim.keymap.set('n', '<C-^>', vim.lsp.buf.references, { buffer = args.buf })
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = args.buf })
-        vim.keymap.set('n', 'go', vim.diagnostic.setloclist, { buffer = args.buf })
-        vim.keymap.set('n', 'rn', vim.lsp.buf.rename, { buffer = args.buf })
-        vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { buffer = args.buf })
-        vim.keymap.set('x', 'ga', vim.lsp.buf.code_action, { buffer = args.buf })
-        vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { buffer = args.buf })
-        end,
-    })
-EOF
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f :call CocActionAsync('format')<cr>
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap ga  <Plug>(coc-codeaction-selected)
+nmap ga  <Plug>(coc-codeaction-selected)
+
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Run the Code Lens action on the current line
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> to scroll float windows/popups
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-if !has('nvim')
-  " ALE CONFIGURATION
-  let g:ale_linters = {
-        \ 'typescript': ['tsserver', 'eslint'],
-        \ 'typescriptreact': ['tsserver', 'eslint'],
-        \ 'elixir': ['elixir-ls'],
-        \ 'ruby': ['solargraph'],
-        \ }
+" Add `:Format` command to format current buffer
+command! -nargs=0 Format :call CocActionAsync('format')
 
-  let g:ale_elixir_elixir_ls_release = expand("/Users/cherryramatis/Packages/elixir-ls/rel")
-  let g:ale_elixir_elixir_ls_config = {'elixirLS': {'dialyzerEnabled': v:false}}
+" Add `:Fold` command to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-  let g:ale_fixers = {
-        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-        \ 'typescript': ['eslint'],
-        \ 'typescriptreact': ['eslint'],
-        \ 'elixir': ['mix_format'],
-        \ 'ruby': ['rubocop'],
-        \ }
+" Add `:OR` command for organize imports of the current buffer
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
-  let g:ale_fix_on_save = 1
-  set signcolumn=yes
-  let g:ale_sign_column_always = 1
+" Add (Neo)Vim's native statusline support
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline
+set statusline=%f
+set statusline+=\ %{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=%=
+set statusline+=%y
 
-
-  function! s:setInsideAle(cmd) abort
-    let l:fts = g:ale_linters->keys()
-
-    execute 'autocmd FileType ' . l:fts->join(',') . ' ' . a:cmd
-  endfunction
-
-  augroup ALE
-    autocmd!
-    " TODO: for some reason this need to be done to work with ruby
-    " nmap <C-]> <cmd>ALEGoToDefinition<cr>
-    call s:setInsideAle('set omnifunc=ale#completion#OmniFunc')
-    call s:setInsideAle('nmap <C-]> <cmd>ALEGoToDefinition<cr>')
-    call s:setInsideAle('nnoremap <C-^> <cmd>ALEFindReferences<cr>')
-    call s:setInsideAle('nnoremap gi <cmd>ALEGoToImplementation<cr>')
-    call s:setInsideAle('nnoremap go <cmd>ALEPopulateLocList<cr>')
-    call s:setInsideAle('nnoremap rn <cmd>ALERename<cr>')
-    call s:setInsideAle('nnoremap rN <cmd>ALEFileRename<cr>')
-    call s:setInsideAle('nnoremap K <cmd>ALEHover<cr>')
-    call s:setInsideAle('nnoremap ga <cmd>ALECodeAction<cr>')
-    call s:setInsideAle('xnoremap ga <cmd>ALECodeAction<cr>')
-  augroup END
-endif
+" Mappings for CoCList
+" Show all diagnostics
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
