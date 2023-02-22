@@ -38,20 +38,7 @@ vim.o.completeopt = "menuone,noselect"
 -- One statusline to rule them all
 vim.o.laststatus = 3
 
--- next greatest remap ever
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
--- Navigate through tabs
-vim.keymap.set("n", "<Tab>", "gt")
-vim.keymap.set("n", "<S-Tab>", "gT")
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-
--- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h22"
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`

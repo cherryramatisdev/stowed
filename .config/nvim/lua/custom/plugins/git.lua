@@ -58,7 +58,7 @@ return {
             gs.diffthis "~"
           end)
           map("n", "<leader>td", gs.toggle_deleted)
-          map("n", "<leader>hc", [[:TermExec cmd='git commit --no-verify'<cr>]])
+          map("n", "<leader>hc", require("utils.git").run_commit)
 
           -- Text object
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")

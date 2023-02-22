@@ -1,14 +1,13 @@
 local actions = require "telescope.actions"
-local Terminal = require("toggleterm.terminal").Terminal
+local run_commit = require('utils.git').run_commit
 
 local function git_status_with_commit_bind()
   local opts = {}
-  local commit = Terminal:new { cmd = "git commit -v --no-verify", hidden = true }
 
   opts.attach_mappings = function(prompt_bufnr, map)
     map("i", "<C-c>", function()
       actions.close(prompt_bufnr)
-      commit:open()
+      run_commit()
     end)
     return true
   end

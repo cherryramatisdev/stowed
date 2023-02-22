@@ -148,8 +148,12 @@ return {
     }
   end,
   keys = {
-    { "<leader>pc", ":Octo pr create<cr>", "create a new pr" },
-    { "<leader>pr", ":Octo pr list<cr>", "list prs" },
-    { "<leader>il", ":Octo issue list<cr>", "list issues" },
+    { "<leader>gpc", ":Octo pr create<cr>", "create a new pr" },
+    { "<leader>gpl", ":Octo pr list<cr>", "list prs" },
+    { "<leader>gil", ":Octo issue list<cr>", "list issues" },
+    { "<leader>gil", ":Octo issue list<cr>", "list issues" },
+    { "<leader>gprs", ":Octo review start<cr>", "start a review for pr" },
+    { "<leader>gprS", ":Octo review submit<cr>", "submit a review for pr" },
+    { "<leader>gprr", ":Octo review resume<cr>", "continue a unsubmitted review" },
   },
 }

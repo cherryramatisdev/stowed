@@ -5,6 +5,7 @@
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   tsserver = {},
+  rnix = {},
   elixirls = {
     dialyzerEnabled = true,
     fetchDeps = true,
@@ -36,7 +37,7 @@ require("mason").setup()
 local mason_lspconfig = require "mason-lspconfig"
 
 mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+  ensure_installed = { "tsserver", "elixirls", "rnix" },
 }
 
 mason_lspconfig.setup_handlers {
