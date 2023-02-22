@@ -3,11 +3,10 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$PATH:$HOME/Scripts
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 export PNPM_HOME="/Users/cherryramatis/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+export PATH=~/.npm-global/bin:$PATH
 
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
