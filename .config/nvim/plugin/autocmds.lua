@@ -1,0 +1,5 @@
+-- TODO: isso aqui reiniciou meu pc, descobrir pq
+-- vim.api.nvim_create_autocmd({ "TermEnter" }, {
+--   pattern = "*",
+--   callback = "startinsert",
+-- })

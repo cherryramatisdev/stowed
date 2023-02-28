@@ -14,6 +14,14 @@ return {
   "folke/neodev.nvim",
 
   -- nice winbar
-  "utilyre/barbecue.nvim",
-  "SmiteshP/nvim-navic",
+  -- "utilyre/barbecue.nvim",
+  -- "SmiteshP/nvim-navic",
+  {
+    "simrat39/rust-tools.nvim",
+    config = function()
+      require("rust-tools").setup {}
+      -- Enable inlay hints auto update and set them for all the buffers
+      require("rust-tools").inlay_hints.enable()
+    end,
+  },
 }

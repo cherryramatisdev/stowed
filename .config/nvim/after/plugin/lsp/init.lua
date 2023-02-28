@@ -6,6 +6,7 @@
 local servers = {
   tsserver = {},
   rnix = {},
+  solargraph = {},
   elixirls = {
     dialyzerEnabled = true,
     fetchDeps = true,
@@ -21,7 +22,7 @@ local servers = {
 }
 
 -- nice winbar
-require("barbecue").setup()
+-- require("barbecue").setup()
 
 -- Setup neovim lua configuration
 require("neodev").setup()
@@ -37,7 +38,7 @@ require("mason").setup()
 local mason_lspconfig = require "mason-lspconfig"
 
 mason_lspconfig.setup {
-  ensure_installed = { "tsserver", "elixirls", "rnix" },
+  ensure_installed = { "tsserver", "elixirls", "rnix", "solargraph" },
 }
 
 mason_lspconfig.setup_handlers {
