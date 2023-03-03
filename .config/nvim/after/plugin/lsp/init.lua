@@ -1,28 +1,11 @@
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
-local servers = {
-  tsserver = {},
-  rnix = {},
-  solargraph = {},
-  elixirls = {
-    dialyzerEnabled = true,
-    fetchDeps = true,
-    enableTestLenses = true,
-    suggestSpecs = true,
-  },
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
+local lspconfig = require "lspconfig"
+
+require("inlay-hints").setup {
+  only_current_line = true,
+  eol = {
+    right_align = true,
   },
 }
-
--- nice winbar
--- require("barbecue").setup()
 
 -- Setup neovim lua configuration
 require("neodev").setup()
@@ -34,20 +17,81 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- Setup mason so it can manage external tooling
 require("mason").setup()
 
--- Ensure the servers above are installed
-local mason_lspconfig = require "mason-lspconfig"
-
-mason_lspconfig.setup {
-  ensure_installed = { "tsserver", "elixirls", "rnix", "solargraph" },
+local rt = require "rust-tools"
+rt.setup {
+  server = {
+    capabilities = capabilities,
+    settings = {
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require("lspconfig")[server_name].setup {
-      capabilities = capabilities,
-      settings = servers[server_name],
-    }
-  end,
+rt.inlay_hints.enable()
+
+lspconfig.tsserver.setup {
+  capabilities = capabilities,
+  settings = {
+    javascript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+      },
+    },
+    typescript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+      },
+    },
+  },
+}
+
+lspconfig.rnix.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.solargraph.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.elixirls.setup {
+  capabilities = capabilities,
+  settings = {
+    ["elixir-ls"] = {
+      dialyzerEnabled = true,
+      fetchDeps = true,
+      enableTestLenses = true,
+      suggestSpecs = true,
+    },
+  },
+}
+
+lspconfig.lua_ls.setup {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+      hint = {
+        enable = true,
+      },
+    },
+  },
 }
 
 -- Turn on lsp status information
