@@ -1,3 +1,4 @@
 #!/bin/sh
 
+echo "Pulling from -> $(git rev-parse --abbrev-ref HEAD)..."
 git fetch && git pull origin $(git rev-parse --abbrev-ref HEAD) $@

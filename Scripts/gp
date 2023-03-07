@@ -1,3 +1,4 @@
 #!/bin/sh
 
+echo "Pushing to -> $(git rev-parse --abbrev-ref HEAD)..."
 git push origin $(git rev-parse --abbrev-ref HEAD) $@
