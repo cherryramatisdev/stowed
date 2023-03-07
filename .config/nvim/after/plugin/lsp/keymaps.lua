@@ -1,13 +1,13 @@
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = 'Show Diagnostics on float window' })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = 'Show Diagnostics on Quickfix' })
+vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, { desc = "Document Symbols" })
 vim.keymap.set(
   "n",
   "<leader>ws",
   require("telescope.builtin").lsp_dynamic_workspace_symbols,
-  { desc = "[W]orkspace [S]ymbols" }
+  { desc = "Workspace Symbols" }
 )
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -33,23 +33,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set(type, keys, func, { buffer = bufnr, desc = desc })
     end
 
-    map("rn", vim.lsp.buf.rename, "[R]e[n]ame")
-    map("ga", vim.lsp.buf.code_action, "[C]ode [A]ction")
-    map("ga", vim.lsp.buf.code_action, "[C]ode [A]ction", "x")
+    map("rn", vim.lsp.buf.rename, "Rename symbol with lsp")
+    map("ga", vim.lsp.buf.code_action, "show code actions")
+    map("ga", vim.lsp.buf.code_action, "show code actions", "x")
 
-    map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-    map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-    map("<leader>T", vim.lsp.buf.type_definition, "Type [D]efinition")
+    map("gr", require("telescope.builtin").lsp_references, "Goto References")
+    map("gI", vim.lsp.buf.implementation, "Goto implementation")
+    map("<leader>T", vim.lsp.buf.type_definition, "Type Definition")
 
     -- See `:help K` for why this keymap
     map("K", vim.lsp.buf.hover, "Hover Documentation")
     map("<C-s>", vim.lsp.buf.signature_help, "Signature Documentation", "i")
 
     -- Lesser used LSP functionality
-    map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+    map("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
     map("<leader>f", function()
       vim.lsp.buf.format { async = true }
-    end, "[F]ormat")
+    end, "Format")
   end,
 })

@@ -7,6 +7,8 @@ return {
           mappings = {
             i = {
               ["<C-h>"] = "which_key",
+              ["<C-k>"] = "move_selection_previous",
+              ["<C-j>"] = "move_selection_next",
             },
           },
         },
@@ -16,27 +18,20 @@ return {
       pcall(require("telescope").load_extension, "ghn")
     end,
     init = function()
-      vim.keymap.set(
-        "n",
-        "<leader><space>",
-        require("telescope.builtin").buffers,
-        { desc = "[ ] Find existing buffers" }
-      )
       vim.keymap.set("n", "<leader>/", function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
           winblend = 10,
           previewer = false,
         })
-      end, { desc = "[/] Fuzzily search in current buffer]" })
+      end, { desc = "Fuzzily search in current buffer]" })
 
       vim.keymap.set("n", "<leader>r", require("telescope.builtin").resume, { desc = "Resume last search" })
-      vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Search Files" })
-      vim.keymap.set("n", "<leader>H", require("telescope.builtin").help_tags, { desc = "[H]elp" })
-      vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
-      vim.keymap.set("n", "<C-s>", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
-      vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
-      vim.keymap.set("n", "<leader>b", require("telescope.builtin").buffers, { desc = "[B]uffers" })
+      vim.keymap.set("n", "<leader><space>", require("telescope.builtin").find_files, { desc = "Search Files" })
+      vim.keymap.set("n", "<leader>H", require("telescope.builtin").help_tags, { desc = "Help" })
+      vim.keymap.set("n", "<leader>?", require("telescope.builtin").live_grep, { desc = "Search whole project" })
+      vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "Search diagnostics" })
+      vim.keymap.set("n", "<leader>b", require("telescope.builtin").buffers, { desc = "Buffers" })
     end,
   },
   {

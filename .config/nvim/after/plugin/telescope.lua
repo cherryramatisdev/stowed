@@ -24,5 +24,5 @@ local function find_files_stowed()
   require("telescope.builtin").find_files(opts)
 end
 
-vim.keymap.set("n", "<leader>gg", git_status_with_commit_bind, { desc = "[G]it status" })
-vim.keymap.set("n", "<leader>c", find_files_stowed)
+vim.keymap.set("n", "<leader>gg", git_status_with_commit_bind, { desc = "Git status" })
+vim.keymap.set("n", "<leader>c", find_files_stowed, { desc = 'Check dotfiles' })
