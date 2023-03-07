@@ -10,10 +10,8 @@ local function goto_file(bufnr)
   vim.cmd "norm gf"
 end
 
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-  callback = function(params)
-    vim.keymap.set("n", "gf", function()
-      goto_file(params.buf)
-    end, { buffer = params.buf })
-  end,
-})
+require("utils.mappings").map_on_filepattern("n", "gf", function(params)
+  vim.keymap.set("n", "gf", function()
+    goto_file(params.buf)
+  end, { buffer = params.buf })
+end, "*", { enter_event = "TermOpen", leave_event = "TermClose" })
