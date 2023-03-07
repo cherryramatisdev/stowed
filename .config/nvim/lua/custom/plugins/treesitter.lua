@@ -19,7 +19,7 @@ return {
           "markdown",
           "markdown_inline",
         },
-        highlight = { enable = true, additional_vim_regex_highlighting = { "markdown" } },
+        highlight = { enable = true, additional_vim_regex_highlighting = { "markdown", "org" } },
         indent = { enable = true, disable = { "python" } },
         playground = {
           enable = true,
