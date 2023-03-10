@@ -8,7 +8,7 @@ export PNPM_HOME="/Users/cherryramatis/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 export PATH=~/.npm-global/bin:$PATH
 
-export EDITOR="nvim"
+export EDITOR="vim"
 export VISUAL="$EDITOR"
 export GIT_EDITOR="$EDITOR"
 
@@ -16,7 +16,11 @@ export GIT_EDITOR="$EDITOR"
 export JIRA_TOKEN="$(jq '.token' ~/.jiraconfig.json | sed 's/"//g')"
 export JIRA_EMAIL="$(jq '.email' ~/.jiraconfig.json | sed 's/"//g')"
 export JIRA_URL="$(jq '.url' ~/.jiraconfig.json | sed 's/"//g')"
-export OPENAI_API_KEY="$(jq '.token' ~/.openai | sed 's/"//g')"
+export JIRA_CARD_PREFIX="$(jq '.prefix' ~/.jiraconfig.json | sed 's/"//g')"
+export JIRA_USER="$(jq '.profile_id' ~/.jiraconfig.json | sed 's/"//g')"
+
+# setup fnm(https://github.com/Schniz/fnm)
+eval "$(fnm env --use-on-cd)"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -39,6 +43,7 @@ alias v="vim"
 alias gp="~/Scripts/gp"
 alias gup="~/Scripts/gup"
 alias cat="bat"
+alias t="~/Scripts/tmuxsessionizer"
 alias e=exit
 alias clear='printf "\e[H\e[2J"'
 alias c='printf "\e[H\e[2J"'
