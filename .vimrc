@@ -12,7 +12,6 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'justinmk/vim-dirvish'
 Plug 'morhetz/gruvbox'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -32,11 +31,14 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 nnoremap <C-p> :FZF<cr>
 nnoremap <C-s> :Rg<cr>
 
+Plug 'lambdalisue/fern.vim'
+
 " Tpope
 Plug 'LnL7/vim-nix'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' | Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-commentary' | Plug 'suy/vim-context-commentstring'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -62,8 +64,6 @@ call plug#end()
 
 " Turn on syntax highlighting
 syntax on
-
-colorscheme gruvbox
 
 " For plugins to load correctly
 filetype plugin indent on
@@ -108,6 +108,18 @@ set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
+if v:version >= 800
+  " stop vim from silently messing with files that it shouldn't
+  set nofixendofline
+
+  " better ascii friendly listchars
+  set listchars=space:*,trail:*,nbsp:*,extends:>,precedes:<,tab:\|>
+
+  " i hate automatic folding
+  set foldmethod=manual
+  set nofoldenable
+endif
+
 " Allow hidden buffers
 set hidden
 
@@ -133,18 +145,12 @@ set showmatch
 set wildmenu
 set wildoptions=pum
 
-if has('gui')
-  colorscheme default
-  set guifont=JetBrainsMono\ Nerd\ Font:h22
-  let $FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
-endif
+colorscheme gruvbox
 
 if has('nvim')
   set guicursor=
 endif
 
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default:
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
@@ -163,6 +169,50 @@ inoremap <C-f> <C-x><C-f>
 
 nnoremap <Tab> :tabn<cr>
 nnoremap <S-Tab> :tabp<cr>
+
+nmap Y y$
+
+nnoremap <leader>y "+y
+xnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+nnoremap <leader>p "+p
+
+" ---- FERN ----
+
+" Custom settings and mappings.
+let g:fern#disable_default_mappings = 1
+
+noremap <silent> <Leader>op :Fern . -drawer -toggle -width=35<CR><C-w>=
+noremap <silent> <Leader>oP :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
+
+function! FernInit() abort
+  nmap <buffer><expr>
+        \ <Plug>(fern-my-open-expand-collapse)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open:select)",
+        \   "\<Plug>(fern-action-expand)",
+        \   "\<Plug>(fern-action-collapse)",
+        \ )
+  nmap <buffer> <cr> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> q <cmd>q<cr>
+  nmap <buffer> o <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> n <Plug>(fern-action-new-path)
+  nmap <buffer> D <Plug>(fern-action-remove)
+  nmap <buffer> M <Plug>(fern-action-move)
+  nmap <buffer> R <Plug>(fern-action-rename)
+  nmap <buffer> z <Plug>(fern-action-hidden:toggle)
+  nmap <buffer> <c-l> <Plug>(fern-action-reload)
+  nmap <buffer> <Tab> <Plug>(fern-action-mark:toggle)
+  nmap <buffer> s <Plug>(fern-action-open:split)
+  nmap <buffer> v <Plug>(fern-action-open:vsplit)
+  nmap <buffer><nowait> h <Plug>(fern-action-leave)
+  nmap <buffer><nowait> l <Plug>(fern-action-enter)
+endfunction
+
+augroup FernGroup
+  autocmd!
+  autocmd FileType fern call FernInit()
+augroup END
 
 " ________________ COC.NVIM ________
 "
@@ -185,7 +235,7 @@ set signcolumn=yes
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <c-space> to trigger completion
 if has('nvim')
@@ -222,20 +272,29 @@ nmap rn <Plug>(coc-rename)
 
 " Formatting selected code
 xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f :call CocActionAsync('format')<cr>
+
+function! s:eslint_or_format() abort
+  let l:filetypes = ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+  if index(l:filetypes, &filetype) >= 0
+    execute "CocCommand eslint.executeAutofix"
+  else
+    execute "call CocActionAsync('format')"
+  endif
+endfunction
+
+nnoremap <expr> <silent> <leader>f <sid>eslint_or_format()
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
 xmap ga  <Plug>(coc-codeaction-selected)
-nmap ga  <Plug>(coc-codeaction-selected)
+nmap ga  <Plug>(coc-codeaction)
 
 " Apply the most preferred quickfix action to fix diagnostic on the current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
-nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
 xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor)
 
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)
@@ -261,9 +320,6 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" Add `:Format` command to format current buffer
-command! -nargs=0 Format :call CocActionAsync('format')
-
 " Add `:Fold` command to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
@@ -280,18 +336,12 @@ set statusline+=%y
 
 " Mappings for CoCList
 " Show all diagnostics
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>q  :<C-u>CocDiagnostics<cr>
 " Manage extensions
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>oc  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <leader>ds  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <leader>ws  :<C-u>CocList -I symbols<cr>
