@@ -1,6 +1,3 @@
-" Don't try to be vi compatible
-set nocompatible
-
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
@@ -12,35 +9,39 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'morhetz/gruvbox'
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'bogado/file-line'
+
+Plug 'Exafunction/codeium.vim'
+
+Plug 'aarleks/zettel.vim'
+let g:zettelkasten = getenv('HOME') . '/Library/Mobile Documents/com~apple~CloudDocs/zettels/'
 
 " Syntax
-if !has('nvim')
-  Plug 'elixir-editors/vim-elixir'
-endif
+Plug 'elixir-editors/vim-elixir'
 Plug 'vim-ruby/vim-ruby'
-
+Plug 'morhetz/gruvbox'
 Plug 'editorconfig/editorconfig-vim'
 
 " Fuzzy
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 let $FZF_DEFAULT_OPTS='--layout=reverse'
-nnoremap <C-p> :FZF<cr>
-nnoremap <C-s> :Rg<cr>
+cabbrev F FZF
+cabbrev S Rg
+cabbrev B Buffers
 
 Plug 'lambdalisue/fern.vim'
 
 " Tpope
-Plug 'LnL7/vim-nix'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-fugitive' | Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-commentary' | Plug 'suy/vim-context-commentstring'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
