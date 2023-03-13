@@ -8,19 +8,27 @@ export PNPM_HOME="/Users/cherryramatis/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 export PATH=~/.npm-global/bin:$PATH
 
-export EDITOR="vim"
+export EDITOR="nvim"
 export VISUAL="$EDITOR"
 export GIT_EDITOR="$EDITOR"
 
+if [[ $VIM != "" ]]; then
+  export EDITOR="viedit"
+fi
+
 # Setup jira
 export JIRA_TOKEN="$(jq '.token' ~/.jiraconfig.json | sed 's/"//g')"
-export JIRA_EMAIL="$(jq '.email' ~/.jiraconfig.json | sed 's/"//g')"
+export JIRA_USER="$(jq '.email' ~/.jiraconfig.json | sed 's/"//g')"
 export JIRA_URL="$(jq '.url' ~/.jiraconfig.json | sed 's/"//g')"
 export JIRA_CARD_PREFIX="$(jq '.prefix' ~/.jiraconfig.json | sed 's/"//g')"
-export JIRA_USER="$(jq '.profile_id' ~/.jiraconfig.json | sed 's/"//g')"
+export JIRA_PROFILE_ID="$(jq '.profile_id' ~/.jiraconfig.json | sed 's/"//g')"
+export REVIEWERS="$(cat ~/Repos/stowed/reviewers | tr '\n' , | sed 's/,$//')"
 
 # setup fnm(https://github.com/Schniz/fnm)
 eval "$(fnm env --use-on-cd)"
+
+# setup zoxide
+eval "$(zoxide init zsh)"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -31,7 +39,7 @@ ENABLE_CORRECTION="false"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git zsh-autosuggestions z colored-man-pages history sudo fzf rbenv gem tmux rails brew)
+plugins=(git zsh-autosuggestions colored-man-pages history sudo fzf rbenv gem tmux rails brew)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -60,3 +68,4 @@ export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
 export PNPM_HOME="/Users/cherryramatis/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
