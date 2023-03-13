@@ -120,6 +120,10 @@ if v:version >= 800
   set nofoldenable
 endif
 
+if has('gui')
+  set guifont=JetBrainsMonoNerdFontCompleteM-Regular:h24
+endif
+
 " Allow hidden buffers
 set hidden
 
