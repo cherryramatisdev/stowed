@@ -151,10 +151,31 @@ if has('nvim')
   set guicursor=
 endif
 
-" Uncomment this to enable by default:
-" set list " To enable by default
-" Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
+if has('nvim')
+  fun! s:PopTerm(direction) abort
+    let l:cmds = {"split": "7sp", "tab": "tabnew"}
+    execute l:cmds[a:direction] . ' | term'
+  endfun
+  nnoremap <leader>ot :call <SID>PopTerm("split")<cr>
+  nnoremap <leader>oT :call <SID>PopTerm("tab")<cr>
+else
+  nnoremap <leader>ot :term<cr>
+  nnoremap <leader>oT :tab term<cr>
+endif
+
+nnoremap <expr> cn &filetype ==#'fugitive' ? ":Git commit -v --no-verify<cr>" : "cn"
+nnoremap <expr> gb &filetype ==#'fugitive' ? ":silent ! gh pr view -w<cr>" : "gb"
+
+nnoremap <expr> <cr> &buftype==#'terminal' ? "\<C-w>gF" : '\<cr>'
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+if has('nvim')
+  tnoremap <c-space> <C-\><C-n>
+else
+  tnoremap <c-@> <C-\><C-n>
+endif
 
 " Color scheme (terminal)
 set t_Co=256
