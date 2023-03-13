@@ -145,7 +145,8 @@ set showmatch
 set wildmenu
 set wildoptions=pum
 
-colorscheme gruvbox
+set updatetime=300
+set signcolumn=yes
 
 if has('nvim')
   set guicursor=
