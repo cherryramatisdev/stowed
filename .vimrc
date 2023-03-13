@@ -215,23 +215,15 @@ augroup FernGroup
 augroup END
 
 " ________________ COC.NVIM ________
-"
-"
-" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
-" utf-8 byte sequence
-set encoding=utf-8
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
-" delays and poor user experience
-set updatetime=300
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved
-set signcolumn=yes
-
+let g:coc_global_extensions = ['coc-json',
+      \ 'coc-git',
+      \ 'coc-snippets',
+      \ 'coc-tsserver',
+      \ 'coc-eslint',
+      \ 'coc-rust-analyzer',
+      \ 'coc-cssmodules',
+      \ 'coc-marketplace',
+      \ ]
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
