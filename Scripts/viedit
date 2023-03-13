@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for f; do
+    echo -e "\033]51;[\"drop\", \"$f\"]\007"
+done
