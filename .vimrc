@@ -251,7 +251,6 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 set tagfunc=CocTagFunc
-" nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gT <Plug>(coc-type-definition)
 nmap <silent> gI <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
