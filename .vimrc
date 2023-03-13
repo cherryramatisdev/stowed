@@ -238,11 +238,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-o> coc#refresh()
-else
-  inoremap <silent><expr> <c-o> coc#refresh()
-endif
+inoremap <silent><expr> <c-o> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
