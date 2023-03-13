@@ -320,12 +320,6 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" Add `:Fold` command to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer
-command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-
 " Add (Neo)Vim's native statusline support
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline
@@ -334,13 +328,21 @@ set statusline+=\ %{coc#status()}%{get(b:,'coc_current_function','')}
 set statusline+=%=
 set statusline+=%y
 
-" Mappings for CoCList
+" Manipulate hunks
+nnoremap <silent><nowait> <leader>hp :CocCommand git.chunkInfo<cr>
+nnoremap <silent><nowait> <leader>hs :CocCommand git.chunkStage<cr>
+nnoremap <silent><nowait> <leader>hS :Gwrite<cr>
+nnoremap <silent><nowait> <leader>hu :CocCommand git.chunkUnstage<cr>
+nnoremap <silent><nowait> <leader>hU :CocCommand git.chunkUndo<cr>
+nnoremap <silent><nowait> <leader>hc :Git commit -v --no-verify<cr>
+nnoremap <silent><nowait> <leader>ha :Git commit --amend -v --no-verify<cr>
+nnoremap ]c <Plug>(coc-git-nextchunk)
+nnoremap [c <Plug>(coc-git-prevchunk)
+
 " Show all diagnostics
-nnoremap <silent><nowait> <space>q  :<C-u>CocDiagnostics<cr>
-" Manage extensions
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <leader>q  :<C-u>CocDiagnostics<cr>
 " Show commands
-nnoremap <silent><nowait> <space>oc  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <leader>oc  :<C-u>CocList commands<cr>
 " Find symbol of current document
 nnoremap <silent><nowait> <leader>ds  :<C-u>CocList outline<cr>
 " Search workspace symbols
