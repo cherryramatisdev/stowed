@@ -1,0 +1,68 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+sub get_task_uuid {
+  my $task_id = $_[0];
+  my $task_uuid = `task _get $task_id.uuid`;
+  chomp $task_uuid;
+
+  my $task_first_annotation = `task _get $task_id.annotations.1.description`;
+  chomp $task_first_annotation;
+
+  if ($task_first_annotation eq "") {
+    system "task $task_id annotate \"Notes\"";
+  }
+
+
+  return $task_uuid;
+}
+
+sub open_task {
+  my $editor = %ENV{EDITOR};
+  my $task_uuid = $_[0];
+
+  system "$editor ~/.task/notes/$task_uuid.md";
+}
+
+sub print_numbered_list {
+    my (@options) = @_;
+
+    print "Select an option:\n";
+
+    foreach my $index (0..$#options) {
+        my $option_number = $index + 1;
+        print "$option_number) $options[$index]\n";
+    }
+
+    print "Enter your choice: ";
+    my $choice = <STDIN>;
+    chomp $choice;
+
+    if ($choice =~ /^\d+$/ && $choice >= 1 && $choice <= scalar @options) {
+        my $selected_option = $options[$choice - 1];
+        return $selected_option;
+    } else {
+        print "Invalid choice\n";
+    }
+}
+
+if (@ARGV) {
+  if ($ARGV[0] =~ /^[0-9]$/) {
+    my $uuid = get_task_uuid $ARGV[0];
+    open_task $uuid;
+
+    exit 0;
+  }
+
+  my $task_id = $ARGV[0];
+  my @notes = `find ~/.task/notes -type f -maxdepth 1 -name "*.md" -exec basename {} + | grep $task_id`;
+  my $selected_note = print_numbered_list(@notes);
+
+  my $editor = %ENV{EDITOR};
+  system("$editor ~/.task/notes/$selected_note");
+
+  exit 0;
+}
+
+say "Usage: task_note <task_id>";

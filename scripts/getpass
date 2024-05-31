@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+passwords=$(bw list items | jq '.[] | {id: .id, name: .name}')
+selected_password=$(echo "$passwords" | jq -r '.name' | fzf)
+selected_password_id=$(echo "$passwords" | jq "select(.name == \"$selected_password\").id" | tr -d '"')
+
+password=$(bw get item "$selected_password_id")
+
+if [[ "$password" != "" ]]; then
+        echo "Copied password from $selected_password with $(echo "$password" | jq '.login.username') username to clipbord..."
+
+        echo "$password" | jq '.login.password' | tr -d '"' | pbcopy
+fi
+

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+url="$(gh repo view --json url -q '.url')"
+branch="$(git branch --show-current)"
+
+if [[ -n "$2" && -n "$3" ]]; then
+  open "$url/tree/$branch/$1#L$2-L$3"
+  exit 0
+fi
+
+open "$url/tree/$branch/$1"

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$EDITOR `git ls-files -m | fzf`

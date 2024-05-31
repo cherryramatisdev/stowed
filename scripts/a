@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+use strict;
+use warnings;
+
+my @actions = `php artisan list --format=json | jq -r '.namespaces.[].commands[]'`;
+
+if ($ENV{COMP_LINE}) {
+    map { /^$ARGV[1]/ && say $_} @actions;
+    exit 0;
+}
+
+exec("php artisan @ARGV");

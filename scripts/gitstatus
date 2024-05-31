@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+has_git_commits() {
+  # Check the number of commits in the repository
+  commit_count=$(git rev-list --count HEAD 2>/dev/null)
+
+  if [[ $commit_count == 0 ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Function to check if there are unstaged changes in the repository
+has_unstaged_changes() {
+  git diff --quiet || return 0
+  return 1
+}
+
+# Function to check if there are uncommitted changes in the repository
+has_uncommitted_changes() {
+  git diff-index --quiet HEAD || return 0
+  return 1
+}
+
+# Function to check if there are unpushed commits in the current branch
+has_unpushed_commits() {
+  local current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  local remote="$(git config branch.${current_branch}.remote)"
+
+  [ -n "$remote" ] || return 1
+
+  local remote_branch="${remote}/${current_branch}"
+
+  git rev-list --left-right ${current_branch}...${remote_branch} -- 2>/dev/null | grep -q "<" && return 0
+  return 1
+}
+
+# Check if we are inside a Git repository
+if [ ! -d .git ]; then
+  exit 1
+fi
+
+if ! has_git_commits; then
+  exit 1
+fi
+
+# Compose the status message
+status_message=""
+
+# Check for unstaged changes
+if has_unstaged_changes; then
+  status_message+="[us] "
+fi
+
+# Check for uncommitted changes
+if has_uncommitted_changes; then
+  status_message+="[uc] "
+fi
+
+# Check for unpushed commits
+if has_unpushed_commits; then
+  status_message+="[up] "
+fi
+
+# Check if everything is okay
+if [ -z "$status_message" ]; then
+  status_message=""
+fi
+
+# Echo the status message
+echo "$status_message"

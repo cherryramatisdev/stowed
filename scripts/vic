@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+my $cmd = `which $ARGV[0]`;
+
+my @actions = `ls $ENV{SCRIPTS}`;
+
+if ($ENV{COMP_LINE}) {
+  map {/^$ARGV[1]/ and say $_} @actions;
+  exit 0;
+}
+
+if ($cmd) {
+  exec "$ENV{EDITOR} $cmd";
+}

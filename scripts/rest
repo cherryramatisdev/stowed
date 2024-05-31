@@ -1,0 +1,3 @@
+#!/bin/sh
+
+timer 10m && osascript -e 'display notification "☕" with title "Rest Timer is up!" subtitle "Bitch lets work 🚀" sound name "Crystal"'

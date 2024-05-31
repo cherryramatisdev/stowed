@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# Run the 'gh auth status' command and capture its output
+gh_auth_status_output = File.read("#{ENV['HOME']}/.local/share/gh_profile.txt")
+
+# Split the output into lines
+output_lines = gh_auth_status_output.split("\n\n")
+
+username = ''
+
+output_lines.each do |line|
+  if line.include?("Active account: true")
+    matches = line.match(/Logged\sin\sto\sgithub\.com\saccount\s(\w+)*/)
+    if matches[1]
+      username = matches[1]
+      break
+    end
+  end
+end
+
+print username unless username.empty?

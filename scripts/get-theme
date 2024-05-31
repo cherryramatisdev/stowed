@@ -1,0 +1,9 @@
+#!/bin/sh
+
+status="$(defaults read -g AppleInterfaceStyle >/dev/null 2>/dev/null ; echo $?)"
+
+if [ "$status" = 1 ]; then
+	echo "light"
+else
+	echo "dark"
+fi

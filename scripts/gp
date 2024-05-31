@@ -1,0 +1,17 @@
+#!/bin/sh
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+echo "Pushing to -> $branch..."
+
+if [ "$DOIT" = "1" ]; then
+  git push origin "$branch" "$@"
+  exit 0
+fi
+
+# if [ "$branch" = "main" ] || [ "$branch" = "develop" ]; then
+#   echo "Dont push to main or develop"
+#   exit 1
+# fi
+
+git push origin "$branch" "$@"

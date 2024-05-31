@@ -1,0 +1,3 @@
+#!/bin/sh
+
+EDITOR=tmux_fff_edit fff $(dirname $1)

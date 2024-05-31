@@ -1,0 +1,50 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+use warnings;
+use strict;
+
+my $dir = `git rev-parse --show-toplevel`;
+$dir =~ s/^\s+|\s+$//g;
+
+chdir($dir) or die "Could not change to the directory $dir: $!";
+
+sub get_package_manager {
+  if (-f "yarn.lock") {
+    return "yarn"
+  }
+
+  if (-f "package-lock.json") {
+    return "npm"
+  }
+
+  if (-f "pnpm-lock.yaml") {
+    return "pnpm"
+  }
+
+  if (-f "bun.lockb") {
+    return "bun"
+  }
+
+  return "none"
+}
+
+# my $package_manager = "bun";
+my $package_manager = get_package_manager;
+
+if ($package_manager eq "none") {
+  say "Could not determine package manager";
+  exit 1;
+}
+
+my @actions = `jq -r '.scripts | keys[]' package.json`;
+
+if ($ENV{COMP_LINE}) {
+  map {/^$ARGV[1]/ and say $_} @actions;
+  exit 0;
+}
+
+system("$package_manager @ARGV");
+
+exit 0;

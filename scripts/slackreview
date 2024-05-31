@@ -1,0 +1,12 @@
+#!/bin/sh
+
+prurl="$(gh pr view | grep url | awk '{print $2}')"
+cardbranch="$(gh pr view --json 'headRefName' | jq '.headRefName')"
+cardcode=${cardbranch//[!0-9]/}
+
+pbcopy <<EOM
+:github: PR: [TEC-$cardcode]($prurl) :github:
+CARD: [https://lamimed.atlassian.net/browse/TEC-$cardcode]
+NOTE/OBS:
+cc @here
+EOM

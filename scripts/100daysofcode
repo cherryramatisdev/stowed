@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+if ARGV[0] == 'today'
+  day = `tail -n 1 #{Dir.home}/100daysofcode.txt`.chomp
+
+  content = <<-DOC
+  ##{day}ºDiaDeCodigo You write here
+  #100DiasDeCodigo #100DaysOfCode
+  DOC
+
+  IO.popen('pbcopy', 'w') { |clipboard| clipboard.puts content }
+  system("open https://twitter.com")
+
+  exit 0
+end
+
+day = `tail -n 1 #{Dir.home}/100daysofcode.txt`.chomp
+day_to_generate = day.to_i + 1
+
+File.open("#{Dir.home}/100daysofcode.txt", 'a') do |file|
+  file.puts day_to_generate
+end
+
+content = <<~DOC
+  ##{day_to_generate}ºDiaDeCodigo You write here
+  #100DiasDeCodigo #100DaysOfCode
+DOC
+
+IO.popen('pbcopy', 'w') { |clipboard| clipboard.puts content }
+system("open https://twitter.com")

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "dark" ]]; then
+        echo "dark,catppuccin-mocha" > ~/.vim-colortheme
+        sed -i '' "s/light.yml/dark.yml/" "$HOME/.config/alacritty/alacritty.yml"
+        echo "Switched to dark theme."
+fi
+
+if [[ "$1" == "light" ]]; then
+        echo "light,catppuccin-latte" > ~/.vim-colortheme
+        sed -i '' "s/dark.yml/light.yml/" "$HOME/.config/alacritty/alacritty.yml"
+        echo "Switched to light theme."
+fi

@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+HELP = <<~MSG.freeze
+  Available commands:
+
+  - next : Create a .projections.json based on a nextjs project
+  - react : Alias to `next`
+  - nestjs(TODO) : Create a .projections.json based on a nestjs project
+MSG
+
+PROJECTION_NEXT = <<~MSG.freeze
+  {
+    "src/components/*/index.tsx": {
+      "alternate": "src/components/{}/styles.ts",
+      "type": "component"
+    },
+    "src/components/*/styles.ts": {
+      "alternate": "src/components/{}/index.tsx"
+    },
+    "src/components/*/index.ts": {
+      "type": "component"
+    },
+    "src/pages/*.tsx": {
+      "type": "page"
+    },
+    "src/templates/*/index.tsx": {
+      "alternate": "src/templates/{}/styles.ts",
+      "type": "template"
+    },
+    "src/templates/*/styles.ts": {
+      "alternate": "src/templates/{}/index.tsx"
+    },
+    "src/templates/*/index.ts": {
+      "type": "template"
+    },
+    "*": {"make": "yarn dev"}
+  }
+MSG
+
+case ARGV.first
+when 'react', 'next'
+  File.write('.projections.json', PROJECTION_NEXT) unless File.exist?('.projections.json')
+  File.write('.git/info/exclude', '.projections.json', mode: 'a')
+else
+  puts HELP
+end

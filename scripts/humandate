@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+import sys
+from datetime import datetime
+
+def format_date(date_string):
+    try:
+        date_object = datetime.strptime(date_string, "%d/%m/%Y")
+        formatted_date = date_object.strftime("%d of %B of %Y")
+
+        return formatted_date
+    except ValueError:
+        return ""
+
+if len(sys.argv) > 1:
+    date_argument = sys.argv[1]
+    formatted_date = format_date(date_argument)
+    if formatted_date:
+        print(formatted_date)
+    sys.exit(0)
+
+for line in sys.stdin:
+    formatted_date = format_date(line.strip())
+    if formatted_date:
+        print(formatted_date)

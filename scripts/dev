@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'json'
+
+# RunNodeProjects...
+class RunNodeProjects
+  def call
+    package_json = JSON.parse File.read 'package.json'
+
+    unless package_json.dig('scripts', 'dev').to_s.empty?
+      system('pkg dev')
+      return
+    end
+
+    return if package_json.dig('scripts', 'start:dev').to_s.empty?
+
+    system('pkg start:dev')
+    nil
+  end
+end
+
+RunNodeProjects.new.call if File.exist? 'package.json'

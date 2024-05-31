@@ -1,0 +1,14 @@
+#!/bin/sh
+
+current_pane="$(tmux list-panes -F "#{pane_active} #{pane_pid} #{pane_current_command}" | grep "^1" | awk '{print $3}' | tr -d ' ')"
+
+# cmd="tmux display-popup -E -w 90% -h 90% file_tree"
+cmd="tmux splitw -h -b -l 40 -- file_tree"
+
+if [ "$current_pane" = "Vim" ] || [ "$current_pane" = "vi" ] || [ "$current_pane" = "nvim" ]; then
+  tmux send-keys ":silent ! $cmd " C-r % Enter
+fi
+
+if [ "$current_pane" = "hx" ]; then
+  tmux send-keys ":sh $cmd " C-r % Enter
+fi

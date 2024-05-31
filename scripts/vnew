@@ -1,0 +1,8 @@
+#!/bin/sh
+
+touch ~/Scripts/$1
+chmod +x ~/Scripts/$1
+
+echo "#!/bin/sh" >> ~/Scripts/$1
+
+$EDITOR ~/Scripts/$1

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+    git checkout "$1"
+else
+    git branch --sort=-committerdate | fzf --bind ctrl-u:preview-up,ctrl-d:preview-down --header "Checkout Recent Branch" --preview "git diff {1} | delta" --pointer="" | xargs git checkout
+fi

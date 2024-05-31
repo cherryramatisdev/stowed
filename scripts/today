@@ -1,0 +1,8 @@
+#!/bin/sh
+
+unix_day="$(date +%s)"
+date="$(start-of-week "$unix_day")"
+
+path="$DIARY_DIR/$date.org"
+
+$EDITOR "$path"

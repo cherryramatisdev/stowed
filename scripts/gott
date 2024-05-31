@@ -1,0 +1,5 @@
+#!/bin/sh
+
+clear
+got $@
+onchange got $@

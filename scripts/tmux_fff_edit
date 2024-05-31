@@ -1,0 +1,18 @@
+#!/bin/sh
+
+fpath="$1"
+
+echo $fpath >> /tmp/buf
+
+tmux send-keys q
+tmux select-pane -R
+
+current_pane="$(tmux list-panes -F "#{pane_active} #{pane_pid} #{pane_current_command}" | grep "^1" | awk '{print $3}')"
+
+if [ "$current_pane" = "hx" ]; then
+  tmux send-keys ":o ${fpath}" Enter
+fi
+
+if [ "$current_pane" = "vi" ] || [ "$current_pane" = "Vim" ]; then
+  tmux send-keys ":e ${fpath}" Enter
+fi

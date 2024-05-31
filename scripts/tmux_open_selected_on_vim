@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+pbcopy
+
+pane_count=$(tmux list-panes | wc -l)
+
+edit() {
+	local current_pane="$(tmux list-panes -F "#{pane_active} #{pane_pid} #{pane_current_command}" | grep "^1" | awk '{print $3}')"
+
+	if [ "$current_pane" = "nvim" ] || [ "$current_pane" = "nvi" ] ||  [ "$current_pane" = "Vim" ] || [ "$current_pane" = "vim" ]; then
+		tmux send-keys ":e $(pbpaste)" Enter
+	else
+		tmux send-keys -X cancel
+		tmux send-keys "vi $(pbpaste)" Enter
+	fi
+}
+
+if [ "$pane_count" -gt 1 ] && tmux list-panes -F '#{pane_current_command}' | grep -q 'Vim\|vim\|nvi\|nvim\|neovim'; then
+	tmux select-pane -l
+	edit
+else
+	edit
+fi

@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+use strict;
+use warnings;
+
+use constant DIARY_PATH => $ENV{DIARY_DIR};
+use constant EDITOR => $ENV{EDITOR};
+
+sub get_yesterday_date {
+  # Get the current time
+  my $current_time = time;
+
+  # Calculate the time for 24 hours ago (1 day = 24 hours = 24 * 60 * 60 seconds)
+  my $yesterday_time = $current_time - (24 * 60 * 60);
+
+  # Format the date as YYYY-MM-DD
+  my ($year, $month, $day) = (localtime($yesterday_time))[5, 4, 3];
+  $year += 1900;
+  $month += 1;
+
+  return (sprintf("%04d", $year), sprintf("%02d", $month), sprintf("%02d", $day));
+}
+
+my ($year, $month, $day) = get_yesterday_date();
+my $path = "${\DIARY_PATH}/$year/$month/$day.md";
+
+system("${\EDITOR} $path");

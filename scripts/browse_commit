@@ -1,0 +1,5 @@
+#!/bin/sh
+
+url="$(gh repo view --json url -q '.url')"
+
+open "$url/commit/$1"

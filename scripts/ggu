@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+if ARGV.empty? || ARGV.length > 1
+  puts "Usage: ggu <term>"
+  puts "Description: This CLI searches a term within all the unstaged files in git"
+  exit 1
+end
+
+system("git grep #{ARGV.first} $(git diff --name-only)")

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Installing the base...."
+brew tap homebrew/cask-fonts
+brew install gh tmux go jq python3 font-jetbrains-mono-nerd-font terminal-notifier 
+brew install --cask visual-studio-code rectangle karabiner-elements discord slack hammerspoon
+
+echo "Installing golang binaries..."
+go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest
+
+echo "Installing python binaries..."
+pip3 install hyfetch
+

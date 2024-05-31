@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import csv
+import sys
+import subprocess
+from datetime import datetime, timedelta
+
+if len(sys.argv) != 3:
+    print("Usage: githubactionsbillabletime REPO WORKFLOW")
+    exit(1)
+
+LIMIT=os.environ.get('LIMIT') or 20
+DIR_TO_SAVE="/Users/cherryramatis/Repos/github_actions_time_data"
+REPO=f"lami-health/{sys.argv[1]}"
+WORKFLOW=f"{sys.argv[2]}.yml"
+
+print(f"LIMIT: {LIMIT}")
+
+def ms_to_time_string(ms):
+    delta = timedelta(milliseconds=ms)
+    time = datetime(1, 1, 1) + delta
+    return time.strftime("%H:%M:%S")
+
+def get_save_path():
+    repo_name = REPO.split('/')[-1]
+    workflow_name = WORKFLOW.split('.')[0]
+    workflow_name = workflow_name.split('-')[0]
+    return f"{DIR_TO_SAVE}/{repo_name}_{workflow_name}.csv"
+
+def sort_by_duration_descending(data_list):
+    sorted_list = sorted(data_list, key=lambda x: datetime.strptime(x['duration'], '%H:%M:%S'), reverse=True)
+    return sorted_list
+
+def get_billable_duration(workflow_data):
+    try:
+        return int(workflow_data['billable']['UBUNTU']['total_ms'])
+    except (KeyError, TypeError):
+        return 0
+
+workflows = subprocess.check_output(f"gh run list -R {REPO} --workflow {WORKFLOW} --json 'headBranch,databaseId,startedAt' --limit {LIMIT}", shell=True).decode()
+workflows = json.loads(workflows)
+
+final_result = []
+
+for workflow in workflows:
+    database_id = workflow['databaseId']
+    workflow_data = subprocess.check_output(f"gh api /repos/{REPO}/actions/runs/{database_id}/timing", shell=True).decode()
+    workflow_data = json.loads(workflow_data)
+
+    final_result.append({'url': f"https://github.com/{REPO}/actions/runs/{database_id}", 'branch': workflow['headBranch'], 'duration': ms_to_time_string(int(workflow_data['run_duration_ms'])), 'billable_time': ms_to_time_string(get_billable_duration(workflow_data)), 'started_at': workflow['startedAt']})
+
+with open(get_save_path(), "w", newline="") as csvfile:
+    fieldnames = ["url", "branch", "duration", "billable_time", "started_at"]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+    final_result = sort_by_duration_descending(final_result)
+
+    writer.writeheader()
+    for item in final_result:
+        writer.writerow(item)

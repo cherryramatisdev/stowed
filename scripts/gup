@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+	echo "Pulling from -> $1..."
+	git fetch -u && git pull origin $1
+else
+	echo "Pulling from -> $(git rev-parse --abbrev-ref HEAD)..."
+	git fetch -u && git pull origin $(git rev-parse --abbrev-ref HEAD) $@
+fi

@@ -1,0 +1,66 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+use warnings;
+use strict;
+
+my $alacritty_theme_path = "/tmp/alacritty_theme";
+
+system("touch $alacritty_theme_path");
+
+my $alacritty_theme_content = `head -n1 /tmp/alacritty_theme | tr -d '\n'`;
+
+sub toggle_tmux_theme {
+  my $theme = $_[0];
+
+  if ($theme eq 'light') {
+    system("sed -i '' -e 's/mocha/latte/g' ~/Repos/cherry/tmux.conf");
+  }
+
+  if ($theme eq 'dark') {
+    system("sed -i '' -e 's/latte/mocha/g' ~/Repos/cherry/tmux.conf");
+  }
+
+  system("tmux source-file ~/.tmux.conf");
+}
+
+sub toggle_alacritty_theme {
+  my $theme = $_[0];
+
+  if ($theme eq 'light') {
+    system("sed -i '' -e 's/catppuccin-mocha/catppuccin-latte/g' ~/.config/alacritty/alacritty.toml");
+  }
+
+  if ($theme eq 'dark') {
+    system("sed -i '' -e 's/catppuccin-latte/catppuccin-mocha/g' ~/.config/alacritty/alacritty.toml");
+  }
+}
+
+sub toggle_macos_theme {
+  my $theme = $_[0];
+
+  if ($theme eq 'light') {
+    system("osascript -l JavaScript -e \"Application('System Events').appearancePreferences.darkMode = false\"");
+  }
+
+  if ($theme eq 'dark') {
+    system("osascript -l JavaScript -e \"Application('System Events').appearancePreferences.darkMode = true\"");
+  }
+}
+
+my $theme = '';
+
+if ($alacritty_theme_content eq "" || $alacritty_theme_content eq "dark") {
+  system("echo light > $alacritty_theme_path");
+  $theme = 'light';
+}
+
+if ($alacritty_theme_content eq "light") {
+  system("echo dark > $alacritty_theme_path");
+  $theme = 'dark';
+}
+
+toggle_alacritty_theme($theme);
+toggle_tmux_theme($theme);
+toggle_macos_theme($theme);

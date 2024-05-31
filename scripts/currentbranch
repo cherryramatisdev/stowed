@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -d .git ] || git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    if [ $# -eq 0 ]; then
+        git branch --show-current
+    else
+        git -C "$1" branch --show-current
+    fi
+else
+    echo ""
+fi

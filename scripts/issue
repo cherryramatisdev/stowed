@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+    gh issue view "$@"
+else
+    gh issue create "$@"
+fi

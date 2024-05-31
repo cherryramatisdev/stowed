@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tmux switch-client -t "$(tmux list-sessions | awk '{print $1}' | sed 's/://' | fzf)"

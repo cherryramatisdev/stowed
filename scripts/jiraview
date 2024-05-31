@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+output=$(printf "%s\n\n%s" "$(jira title)" "$(jira view)" | pandoc --from jira --to markdown)
+echo "# $output" | glow
