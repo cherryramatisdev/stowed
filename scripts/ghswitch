@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+echo "Switching the account..."
+
+gh auth switch
+
+account="$(gh auth status | sed -n '2 p')"
+
+echo "Updating the SSH keys..."
+
+if [[ $account == *cherryramatisdev* ]]; then
+    sed -i '' 's/work/personal/g' ~/git/personal/stowed/.ssh/config
+fi
+
+if [[ $account == *cherryeclipseworks* ]]; then
+    sed -i '' 's/personal/work/g' ~/git/personal/stowed/.ssh/config
+fi
+
+cat ~/.ssh/config
