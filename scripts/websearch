@@ -6,6 +6,6 @@ for arg in "$@"; do
 done
 query=${query:1}  # remove leading +
 
-url="https://duckduckgo.com/html/?q=$query"
+url="https://lite.duckduckgo.com/lite/?kd=-1&kp=-1&q=$query"
 
 w3m "$url"

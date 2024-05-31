@@ -1,10 +1,11 @@
 filetype plugin on
 syntax on
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set noswapfile
+set completeopt=menu,noinsert
 
 let data_dir = '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -28,17 +29,31 @@ call plug#end()
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'javascriptreact': ['eslint'],
-\   'typescript': ['eslint'],
-\   'typescriptreact': ['eslint'],
+\   'javascript': ['prettier'],
+\   'javascriptreact': ['prettier'],
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
+\}
+
+let g:ale_linters = {
+\   'javascript': ['eslint', 'tsserver'],
+\   'javascriptreact': ['eslint', 'tsserver'],
+\   'typescript': ['eslint', 'tsserver'],
+\   'typescriptreact': ['eslint', 'tsserver'],
 \}
 
 let g:ale_fix_on_save = 1
 set omnifunc=ale#completion#OmniFunc
 nnoremap <c-]> :ALEGoToDefinition<cr>
 nnoremap <c-w>] <c-w>v:ALEGoToDefinition<cr>
+nnoremap K :ALEHover<cr>
 nnoremap ga :ALECodeAction<cr>
-nnoremap gr :ALEFindReferences<cr>
+
+fun! FindReferences() abort
+  ALEFindReferences -quickfix
+  copen
+endfun
+
+nnoremap gr :call FindReferences()<cr>
 nnoremap gi :ALEGoToImplementation<cr>
 inoremap <c-o> <c-x><c-o>
