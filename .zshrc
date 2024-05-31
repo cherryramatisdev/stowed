@@ -88,6 +88,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Aliases
 alias ls='ls --color'
 alias c='clear'
+alias '?'='websearch'
 
 # Shell integrations
 eval "$(fzf --zsh)"

@@ -76,7 +76,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^com\\.raphaelamorim\\.rio$",
-					    "^com\\.riotgames\\.LeagueofLegends\\.LeagueClientUx",
+                                            "^com\\.riotgames\\.LeagueofLegends\\.LeagueClientUx",
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^org\\.vim\\.",

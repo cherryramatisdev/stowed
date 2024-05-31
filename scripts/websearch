@@ -1,0 +1,11 @@
+#!/bin/sh
+
+query=""
+for arg in "$@"; do
+    query="$query+$arg"
+done
+query=${query:1}  # remove leading +
+
+url="https://duckduckgo.com/html/?q=$query"
+
+w3m "$url"
