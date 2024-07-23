@@ -71,9 +71,11 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Env Vars
-export GIT_EDITOR="vim"
+export EDITOR="nvim"
+export GIT_EDITOR="$EDITOR"
 export PAGER="less"
 export PATH="$HOME/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
@@ -110,4 +112,17 @@ unalias 'gp'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(dstask zsh-completion)"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+. "$HOME/.cargo/env"
+
+# bun completions
+[ -s "/Users/cherryramatis/.bun/_bun" ] && source "/Users/cherryramatis/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
