@@ -85,9 +85,27 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
+alias task="dstask"
+alias t="tmux"
+alias vi="$EDITOR"
 alias ls='ls --color'
 alias c='clear'
 alias '?'='websearch'
+alias gg='git grep -n'
+alias gl='~/scripts/gup'
+alias postgresup='docker run --rm --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e TZ=America/Sao_Paulo -d postgres'
+alias postgresdown='docker stop postgres'
+alias postgresconnect='docker exec -it postgres psql -U postgres'
+alias dsp='docker system prune -a'
+alias tmp='cd "$(mktemp -d /tmp/XXXXXX)"'
+alias zettel='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten'
+alias chromewithoutcors='open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+alias b='bundle'
+alias ba='bundle add'
+alias be='bundle exec'
+unalias 'gp'
 
 # Shell integrations
 eval "$(fzf --zsh)"
