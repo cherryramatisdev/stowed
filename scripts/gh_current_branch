@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use v5.14;
+
+use Cwd;
+
+my $cwd = $ARGV[0] || getcwd();
+
+if (! -d "$cwd/.git") {
+  exit 1;
+}
+
+my $current_branch = `git -C "$cwd" rev-parse --abbrev-ref HEAD`;
+chomp $current_branch;
+
+say $current_branch;

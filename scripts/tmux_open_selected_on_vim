@@ -15,9 +15,11 @@ edit() {
 	fi
 }
 
-if [ "$pane_count" -gt 1 ] && tmux list-panes -F '#{pane_current_command}' | grep -q 'Vim\|vim\|nvi\|nvim\|neovim'; then
-	tmux select-pane -l
-	edit
-else
-	edit
-fi
+edit
+
+# if [ "$pane_count" -gt 1 ] && tmux list-panes -F '#{pane_current_command}' | grep -q 'Vim\|vim\|nvi\|nvim\|neovim'; then
+# 	tmux select-pane -l
+# 	edit
+# else
+# 	edit
+# fi
