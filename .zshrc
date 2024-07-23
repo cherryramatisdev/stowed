@@ -49,6 +49,8 @@ bindkey -v
 autoload -U edit-command-line
 zle -N edit-command-line
 
+bindkey -s "^Z" 'fg^M'
+
 # Vi style:
 bindkey "^F" edit-command-line
 bindkey -M vicmd "^F" edit-command-line
