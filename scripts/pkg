@@ -5,10 +5,10 @@ use v5.14;
 use warnings;
 use strict;
 
-my $dir = `git rev-parse --show-toplevel`;
-$dir =~ s/^\s+|\s+$//g;
+# my $dir = `git rev-parse --show-toplevel`;
+# $dir =~ s/^\s+|\s+$//g;
 
-chdir($dir) or die "Could not change to the directory $dir: $!";
+# chdir($dir) or die "Could not change to the directory $dir: $!";
 
 sub get_package_manager {
   if (-f "yarn.lock") {
