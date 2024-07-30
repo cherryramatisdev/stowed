@@ -71,7 +71,7 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Env Vars
-export EDITOR="nvim"
+export EDITOR="hx"
 export GIT_EDITOR="$EDITOR"
 export PAGER="less"
 export PATH="$HOME/scripts:$PATH"
