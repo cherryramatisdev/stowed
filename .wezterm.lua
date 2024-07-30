@@ -17,6 +17,29 @@ config.window_padding = {
   bottom = 0,
 }
 
+local function get_current_working_dir(tab)
+  local current_dir = tostring(tab.active_pane.current_working_dir or '')
+  local HOME_DIR = string.format('file://%s', os.getenv('HOME'))
+
+  if current_dir == HOME_DIR then
+    return '~'
+  else
+    return string.gsub(current_dir, '(.*[/\\])(.*)', '%2')
+  end
+end
+
+---@diagnostic disable-next-line: redefined-local
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+  local cwd = wezterm.format({
+    { Attribute = { Intensity = 'Bold' } },
+    { Text = get_current_working_dir(tab) },
+  })
+
+  return {
+    { Text = string.format(' %s: %s ', tab.tab_index + 1, cwd) }
+  }
+end)
+
 config.leader = { key="q", mods="CTRL" }
 
 config.keys = {
