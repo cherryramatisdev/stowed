@@ -50,6 +50,7 @@ autoload -U edit-command-line
 zle -N edit-command-line
 
 bindkey -s "^Z" 'fg^M'
+bindkey -s "^G" 'gitui^M'
 
 # Vi style:
 bindkey "^F" edit-command-line
@@ -71,7 +72,7 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Env Vars
-export EDITOR="hx"
+export EDITOR="nvim"
 export GIT_EDITOR="$EDITOR"
 export PAGER="less"
 export PATH="$HOME/scripts:$PATH"
@@ -91,6 +92,9 @@ alias task="dstask"
 alias t="tmux"
 alias vi="$EDITOR"
 alias ls='ls --color'
+alias ll='ls --color -l'
+alias la='ls --color -lha'
+alias l='ls --color'
 alias c='clear'
 alias '?'='websearch'
 alias gg='git grep -n'

@@ -71,6 +71,7 @@ config.keys = {
   { key = "d", mods = "LEADER",       action=wezterm.action{CloseCurrentPane={confirm=true}}},
   { key = "x", mods = "LEADER",       action=wezterm.action{CloseCurrentPane={confirm=true}}},
   { key = "[", mods = "LEADER",       action="ActivateCopyMode"},
+  { key = "]", mods = "LEADER",       action=wezterm.action{PasteFrom="Clipboard"}},
   { key = "q", mods = "LEADER",       action="QuickSelect"},
 }
 
