@@ -19,7 +19,7 @@ return {
       require('telescope').setup {
         defaults = {
           mappings = {
-            i = { ['<c-enter>'] = 'to_fuzzy_refine', ['<esc>'] = 'close' },
+            i = { ['<c-enter>'] = 'to_fuzzy_refine', ['<esc>'] = 'close', ['<c-\\>'] = 'send_to_qflist' },
           },
         },
         extensions = {

@@ -5,6 +5,7 @@
 return {
   'tpope/vim-sleuth',
   'tpope/vim-surround',
+  { 'dmmulroy/tsc.nvim', config = true },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
     'https://github.com/stevearc/oil.nvim',
@@ -34,7 +35,7 @@ return {
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.setup { use_icons = vim.g.have_nerd_font, set_vim_settings = false }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for

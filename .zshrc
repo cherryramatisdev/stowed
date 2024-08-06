@@ -50,7 +50,7 @@ autoload -U edit-command-line
 zle -N edit-command-line
 
 bindkey -s "^Z" 'fg^M'
-bindkey -s "^G" 'gitui^M'
+bindkey -s "^G" 'lazygit^M'
 
 # Vi style:
 bindkey "^F" edit-command-line
