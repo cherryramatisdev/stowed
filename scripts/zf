@@ -1,0 +1,32 @@
+#!/usr/bin/env bun
+
+import { $ } from "bun"
+import { createInterface } from 'readline'
+
+createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+const query = `.*${Bun.argv.slice(2).join('.*')}.*`
+
+const found = await $`rg '${query}' $OBSIDIAN_VAULT`.then(t => t.text()).catch(() => console.log('Não achou nada 😔'))
+
+process.stdout.write('Do you want to continue? (y/n): ');
+
+process.stdin.on('keypress', async (_, key) => {
+    if (key.name === 'y') {
+        const fileToEdit = found.split(':')[0];
+
+        // TODO: Add open to vim also
+        await $`open obsidian://${fileToEdit}`
+
+        process.exit();
+    }
+
+    if (key.name === 'n') {
+        process.exit();
+    }
+});
+
+// vim: set ft=javascript
