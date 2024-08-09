@@ -12,8 +12,8 @@ if len(sys.argv) != 3:
     exit(1)
 
 LIMIT=os.environ.get('LIMIT') or 20
-DIR_TO_SAVE="/Users/cherryramatis/Repos/github_actions_time_data"
-REPO=f"lami-health/{sys.argv[1]}"
+DIR_TO_SAVE="xxx"
+REPO=f"xxx/{sys.argv[1]}"
 WORKFLOW=f"{sys.argv[2]}.yml"
 
 print(f"LIMIT: {LIMIT}")
