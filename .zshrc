@@ -72,6 +72,7 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Env Vars
+export OBSIDIAN_VAULT="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten/"
 export EDITOR="nvim"
 export GIT_EDITOR="$EDITOR"
 export PAGER="less"

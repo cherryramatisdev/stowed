@@ -12,11 +12,42 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
       'hrsh7th/cmp-nvim-lsp',
+      {
+        'elixir-tools/elixir-tools.nvim',
+        version = '*',
+        event = { 'BufReadPre', 'BufNewFile' },
+        config = function()
+          local elixir = require 'elixir'
+          local elixirls = require 'elixir.elixirls'
+
+          elixir.setup {
+            nextls = { enable = true },
+            elixirls = {
+              enable = true,
+              settings = elixirls.settings {
+                dialyzerEnabled = true,
+                enableTestLenses = false,
+              },
+              on_attach = function(_client, _bufnr)
+                vim.keymap.set('n', '<leader>fp', ':ElixirFromPipe<cr>', { buffer = true, noremap = true })
+                vim.keymap.set('n', '<leader>tp', ':ElixirToPipe<cr>', { buffer = true, noremap = true })
+                vim.keymap.set('v', '<leader>em', ':ElixirExpandMacro<cr>', { buffer = true, noremap = true })
+              end,
+            },
+            projectionist = {
+              enable = true,
+            },
+          }
+        end,
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+        },
+      },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
