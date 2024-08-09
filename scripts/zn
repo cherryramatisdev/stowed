@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+filename = ARGV.join('-').downcase
+
+system("open obsidian://$OBSIDIAN_VAULT/#{filename}.md")
