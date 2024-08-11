@@ -115,11 +115,16 @@ alias be='bundle exec'
 unalias 'gp'
 
 # Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-eval "$(dstask zsh-completion)"
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-. "$HOME/.cargo/env"
+_has_binary() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# _has_binary "fzf" && eval "$(fzf --zsh)"
+_has_binary "zoxide" && eval "$(zoxide init --cmd cd zsh)"
+_has_binary "dstask" && eval "$(dstask zsh-completion)"
+_has_binary "asdf" && . /opt/homebrew/opt/asdf/libexec/asdf.sh
+_has_binary "mise" && eval "$(mise activate zsh)"
+_has_binary "cargo" && . "$HOME/.cargo/env"
 
 # bun completions
 [ -s "/Users/cherryramatis/.bun/_bun" ] && source "/Users/cherryramatis/.bun/_bun"
@@ -130,4 +135,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+_has_binary "ng" && source <(ng completion script)

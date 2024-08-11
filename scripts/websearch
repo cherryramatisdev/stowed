@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 query=""
 for arg in "$@"; do
