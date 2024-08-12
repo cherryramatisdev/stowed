@@ -2,4 +2,9 @@
 
 filename = ARGV.join('-').downcase
 
-system("open obsidian://$OBSIDIAN_VAULT/#{filename}.md")
+obsidian_path = ENV['OBSIDIAN_VAULT']
+
+create = "touch #{obsidian_path}#{filename}.md"
+open_obsidian = "open obsidian://#{obsidian_path}#{filename}.md"
+
+system("#{create} && #{open_obsidian}")
