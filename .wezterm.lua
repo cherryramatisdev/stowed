@@ -3,7 +3,7 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.font = wezterm.font 'UbuntuMono Nerd Font Mono'
-config.font_size = 18.0
+config.font_size = 20.0
 
 config.color_scheme = 'Tomorrow (dark) (terminal.sexy)'
 
@@ -16,6 +16,7 @@ config.window_padding = {
   top = 0,
   bottom = 0,
 }
+config.window_decorations = "RESIZE"
 
 local function get_current_working_dir(tab)
   local current_dir = tostring(tab.active_pane.current_working_dir or '')
