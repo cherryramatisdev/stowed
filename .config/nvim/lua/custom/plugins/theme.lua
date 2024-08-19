@@ -1,6 +1,6 @@
 return {
   {
-    'RRethy/base16-nvim',
+    'chriskempson/base16-vim',
     priority = 1000,
     init = function()
       vim.cmd.colorscheme 'base16-tomorrow-night'

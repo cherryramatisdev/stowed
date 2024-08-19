@@ -1,7 +1,6 @@
 filetype plugin on
 syntax on
 
-set termguicolors
 set mouse=a
 set hidden
 set nu rnu
@@ -34,10 +33,7 @@ call plug#begin('~/.local/share/vim')
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 
 Plug 'Chandlercjy/vim-markdown-edit-code-block', { 'for':'markdown'}
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-Plug 'cherryramatisdev/theme-sync.vim'
-let g:theme_sync_light_colorscheme = 'catppuccin_latte'
-let g:theme_sync_dark_colorscheme = 'catppuccin_mocha'
+Plug 'chriskempson/base16-vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'elixir-editors/vim-elixir'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
@@ -110,6 +106,8 @@ Plug 'tpope/vim-dadbod'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 call plug#end()
+
+colorscheme base16-tomorrow-night
 
 let NERDTreeHijackNetrw = 0
 
