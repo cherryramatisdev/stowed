@@ -8,18 +8,6 @@ return {
   { 'dmmulroy/tsc.nvim', config = true },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
-    'https://github.com/stevearc/oil.nvim',
-    config = true,
-    keys = {
-      {
-        '-',
-        function()
-          require('oil').open()
-        end,
-      },
-    },
-  },
-  {
     'echasnovski/mini.nvim',
     config = function()
       -- Better Around/Inside textobjects
