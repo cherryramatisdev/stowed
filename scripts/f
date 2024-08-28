@@ -1,16 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
-vi +FZF
+cmd = `fzf --preview 'cat {}'`
 
-# cmd = `fzf --preview 'cat {}'`
+def file_checker(path)
+  if path.empty?
+    puts 'no file selected'
+    exit 0
+  end
+end
 
-# def file_checker(path)
-#   if path.empty?
-#     puts 'no file selected'
-#     exit 0
-#   end
-# end
+file_checker(cmd)
 
-# file_checker(cmd)
-
-# system("#{ENV['EDITOR']} #{cmd}")
+system("#{ENV['EDITOR']} #{cmd}")

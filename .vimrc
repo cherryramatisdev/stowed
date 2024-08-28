@@ -14,6 +14,7 @@ set completeopt=menu,menuone,noinsert
 set shortmess+=c
 set belloff+=ctrlg
 set splitright splitbelow
+set laststatus=0
 
 " Eslint format
 set errorformat+=%A%f:%l:%c:%m,%-G%.%#
@@ -22,161 +23,71 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
 endif
 
-let data_dir = '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" let data_dir = '~/.vim'
+" if empty(glob(data_dir . '/autoload/plug.vim'))
+"   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" endif
 
-call plug#begin('~/.local/share/vim')
+" call plug#begin('~/.local/share/vim')
 
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'neovimhaskell/haskell-vim'
+" Plug 'elixir-editors/vim-elixir'
+" Plug 'joker1007/vim-ruby-heredoc-syntax'
+" let g:ruby_heredoc_syntax_filetypes = {
+"         \ "sql" : {
+"         \   "start" : "SQL",
+"         \},
+"   \}
 
-Plug 'Chandlercjy/vim-markdown-edit-code-block', { 'for':'markdown'}
-Plug 'chriskempson/base16-vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'elixir-editors/vim-elixir'
-Plug 'joker1007/vim-ruby-heredoc-syntax'
-let g:ruby_heredoc_syntax_filetypes = {
-        \ "sql" : {
-        \   "start" : "SQL",
-        \},
-  \}
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 
-Plug 'fatih/vim-go'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'bogado/file-line'
+" Plug 'pbrisbin/vim-mkdir'
 
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-emmet.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-sleuth'
+" Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-fugitive' | Plug 'tpope/vim-rhubarb'
+" Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-dadbod'
+" Plug 'tpope/vim-surround'
 
-Plug 'SirVer/ultisnips'
-Plug 'prabirshrestha/async.vim'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsSnippetDirectories = [expand('~/git/personal/stowed/snippets')]
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+" Plug 'AndrewRadev/sideways.vim'
+" nnoremap gh :SidewaysLeft<cr>
+" nnoremap gl :SidewaysRight<cr>
+" omap aa <Plug>SidewaysArgumentTextobjA
+" xmap aa <Plug>SidewaysArgumentTextobjA
+" omap ia <Plug>SidewaysArgumentTextobjI
+" xmap ia <Plug>SidewaysArgumentTextobjI
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'mattn/emmet-vim'
+" let g:user_emmet_leader_key = '<C-z>'
+" let g:user_emmet_expandabbr_key = '<C-x><C-e>'
 
-Plug 'bogado/file-line'
-Plug 'pbrisbin/vim-mkdir'
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
-Plug 'preservim/vim-pencil'
-Plug 'junegunn/goyo.vim'
+" call plug#end()
 
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive' | Plug 'tpope/vim-rhubarb'
-Plug 'jreybert/vimagit'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-surround'
-
-Plug 'AndrewRadev/switch.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'AndrewRadev/sideways.vim'
-nnoremap gh :SidewaysLeft<cr>
-nnoremap gl :SidewaysRight<cr>
-omap aa <Plug>SidewaysArgumentTextobjA
-xmap aa <Plug>SidewaysArgumentTextobjA
-omap ia <Plug>SidewaysArgumentTextobjI
-xmap ia <Plug>SidewaysArgumentTextobjI
-
-Plug 'AndrewRadev/qftools.vim'
-Plug 'mattn/emmet-vim'
-let g:user_emmet_leader_key = '<C-z>'
-let g:user_emmet_expandabbr_key = '<C-x><C-e>'
-Plug 'tpope/vim-dadbod'
-
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-
-call plug#end()
-
-colorscheme base16-tomorrow-night
-
-let NERDTreeHijackNetrw = 0
-
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-augroup END
-
-let g:lsp_completion_documentation_enabled = 0
-let g:lsp_document_highlight_enabled = 0
-let g:lsp_diagnostics_highlights_enabled = 0
-let g:lsp_diagnostics_virtual_text_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_document_code_action_signs_enabled = 0
-let g:lsp_signature_help_enabled = 0
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> ga <plug>(lsp-code-action)
-  vmap <buffer> ga <cmd>LspCodeAction<cr>
-  nmap <buffer> rn <plug>(lsp-rename)
-  nmap <buffer> [d <plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]d <plug>(lsp-next-diagnostic)
-  nmap <buffer> gq <plug>(lsp-document-diagnostics)
-  nmap <buffer> K <plug>(lsp-hover)
-  nmap <buffer> <leader>f <cmd>LspDocumentFormat<cr>
-endfunction
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'allowlist': ['*'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor')
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emmet#get_source_options({
-    \ 'name': 'emmet',
-    \ 'whitelist': ['html', 'typescriptreact'],
-    \ 'completor': function('asyncomplete#sources#emmet#completor'),
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'allowlist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-        \ 'name': 'ultisnips',
-        \ 'allowlist': ['*'],
-        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-        \ }))
+set background=dark
+colorscheme quiet
 
 inoremap <c-o> <c-x><c-o>
 nnoremap <c-f> <cmd>FZF<cr>
 nnoremap <c-s> <cmd>Rg<cr>
 
-autocmd FileType markdown nmap <buffer> <silent> <space>e :MarkdownEditBlock<CR>
+autocmd FileType markdown nmap <buffer> <silent> <leader>e :MarkdownEditBlock<CR>
 autocmd FileType fugitive nmap <buffer> cc cvc
 
-nnoremap <space><space> <cmd>NERDTreeToggle<cr>
+nnoremap <space>e <cmd>NERDTreeToggle<cr>
 nnoremap <space>f <cmd>NERDTreeFind<cr>
+
+autocmd BufRead *.html setlocal filetype=html.angular

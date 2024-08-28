@@ -1,0 +1,3 @@
+#!/bin/sh
+
+fd app | entr -s 'cabal build'

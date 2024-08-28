@@ -83,8 +83,6 @@ export PATH="$PNPM_HOME:$PATH"
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
-export NIX_CONF_DIR=$HOME/.config/nix
-
 # https://maksimrv.medium.com/install-graalvm-on-macos-m1-1f7812a29c75
 export GRAALVM_HOME="$HOME/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home"
 export PATH="$GRAALVM_HOME/bin:$PATH"
@@ -145,5 +143,3 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Load Angular CLI autocompletion.
 _has_binary "ng" && source <(ng completion script)
-
-[ -f "/Users/cherryramatis/.ghcup/env" ] && . "/Users/cherryramatis/.ghcup/env" # ghcup-env

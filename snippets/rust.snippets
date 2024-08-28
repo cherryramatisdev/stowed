@@ -1,0 +1,16 @@
+snippet tests
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    test$0
+}
+endsnippet
+
+snippet test
+#[test]
+fn $1() {
+	$0
+	assert_eq!();
+}
+endsnippet
