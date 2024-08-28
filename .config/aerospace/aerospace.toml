@@ -60,7 +60,7 @@ outer.right =      0
 # 'main' binding mode must be always presented
 [mode.main.binding]
 # alt-enter = 'exec-and-forget wezterm cli spawn --new-window' ---------> SEMPRE ABRE NOVA WINDOW
-alt-enter = 'exec-and-forget open -a Terminal'
+alt-enter = 'exec-and-forget open -a Kitty'
 alt-b = 'exec-and-forget open -a Arc'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout

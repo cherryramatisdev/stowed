@@ -99,7 +99,6 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Aliases
 alias task="ultralist"
 alias t="tmux"
-alias vi="$EDITOR"
 alias ls='ls --color'
 alias ll='ls --color -l'
 alias la='ls --color -lha'
