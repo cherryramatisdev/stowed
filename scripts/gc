@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# NOTE: This project has some really specific stuff for commit
-if [[ "$(pwd)" == "/Users/cherry/Work/elleve/consignado-monorepo-poc" ]]; then
-        git commit -v $@
-        exit 0
-fi
-
 if jq -e '.["lint-staged"]' package.json >/dev/null 2>&1; then
     if yarn lint; then
         git commit --no-verify -v "$@"
