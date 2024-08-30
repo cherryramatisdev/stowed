@@ -69,6 +69,7 @@ alias be="bundle exec"
 
 # Git related
 alias ga="git add"
+alias gd="git diff"
 alias gst="git status"
 alias gs="git show"
 alias gsw="git switch"
