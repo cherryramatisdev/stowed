@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+echo "Setting up homebrew..."
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+echo "Bundling it up"
+
+brew bundle
+
+echo "Syncing it up"
+
+make sync
+
+echo "INstalling external binaries..."
+
+go install github.com/rwxrob/keg/cmd/keg@latest
+
+echo "Fish as the shell"
+
+echo $(which fish) | sudo tee -a /etc/shells
+
+chsh -s $(which fish)
+
+echo "REstart and be happy"

@@ -1,0 +1,4 @@
+#!/bin/sh
+export KEG_CURRENT="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten"
+exec keg "$@"
+

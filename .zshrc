@@ -1,8 +1,5 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
 fi
 
 if [[ -f "/opt/homebrew/bin/brew" ]] then
@@ -10,38 +7,32 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# # Set the directory we want to store zinit and plugins
+# ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Download Zinit, if it's not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
+# # Download Zinit, if it's not there yet
+# if [ ! -d "$ZINIT_HOME" ]; then
+#    mkdir -p "$(dirname $ZINIT_HOME)"
+#    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+# fi
 
-# Source/Load zinit
-source "${ZINIT_HOME}/zinit.zsh"
-
-# Add in Powerlevel10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+# # Source/Load zinit
+# source "${ZINIT_HOME}/zinit.zsh"
 
 # Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
+# zinit light zsh-users/zsh-syntax-highlighting
+# zinit light zsh-users/zsh-completions
+# zinit light zsh-users/zsh-autosuggestions
+# zinit light Aloxaf/fzf-tab
 
 # Add in snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
+# zinit snippet OMZP::git
+# zinit snippet OMZP::sudo
 
 # Load completions
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 
-zinit cdreplay -q
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# zinit cdreplay -q
 
 # Keybindings
 bindkey -v
@@ -81,6 +72,8 @@ export PATH="$HOME/.local/bin:$PATH"
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
+export PS1="🍒 "
+
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
 export NIX_CONF_DIR=$HOME/.config/nix
@@ -104,6 +97,7 @@ alias ll='ls --color -l'
 alias la='ls --color -lha'
 alias l='ls --color'
 alias c='clear'
+alias f='fzf --bind="enter:execute@vim {}@+abort"'
 alias ca='cargo'
 alias '?'='websearch'
 alias gg='git grep -n'
@@ -120,7 +114,7 @@ alias dcd='docker-compose down'
 alias b='bundle'
 alias ba='bundle add'
 alias be='bundle exec'
-unalias 'gp'
+# unalias 'gp'
 
 # Shell integrations
 _has_binary() {
@@ -146,3 +140,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 _has_binary "ng" && source <(ng completion script)
 
 [ -f "/Users/cherryramatis/.ghcup/env" ] && . "/Users/cherryramatis/.ghcup/env" # ghcup-env
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi
