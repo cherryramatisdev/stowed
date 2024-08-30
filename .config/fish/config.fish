@@ -12,8 +12,6 @@ bind -M insert \ce 'end-of-line'
 bind -M insert \cf 'walk'
 
 # History settings
-set -U fish_history
-set -U fish_history_path ~/.local/share/fish/fish_history
 set -U fish_greeting
 
 # Env Vars
@@ -32,6 +30,8 @@ set -gx GOBIN "$HOME/.local/bin/"
 function fish_prompt
   echo "🍒 "
 end
+
+function fish_mode_prompt; end
 
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --strip-cwd-prefix'
 
