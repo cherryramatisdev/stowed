@@ -67,6 +67,13 @@ alias b="bundle"
 alias ba="bundle add"
 alias be="bundle exec"
 
+# Git related
+alias ga="git add"
+alias gst="git status"
+alias gs="git show"
+alias gsw="git switch"
+alias gswd="git switch develop"
+
 # Shell integrations
 function _has_binary
     command -v $argv[1] > /dev/null 2>&1
