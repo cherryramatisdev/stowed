@@ -89,6 +89,10 @@ set nobackup
 set noswapfile
 set nowritebackup
 
+" Fuzzy finder
+set path+=**
+set wildignore+=**/node_modules/**
+
 set icon
 
 " center the cursor always on the screen
