@@ -232,12 +232,22 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " github.com/junegunn/vim-plug
 
   call plug#begin('~/.local/share/vim/plugins')
+  " Theme
   Plug 'conradirwin/vim-bracketed-paste'
   Plug 'morhetz/gruvbox'
-  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+
+  " Markdown/pandoc stuff
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'rwxrob/vim-pandoc-syntax-simple'
+  Plug 'Chandlercjy/vim-markdown-edit-code-block', { 'for':'pandoc'}
+  Plug 'dbridges/vim-markdown-runner', {'for': 'pandoc'}
+
+  " Coding
   Plug 'dense-analysis/ale'
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+  Plug 'puremourning/vimspector'
+
+  " Misc
   Plug 'bogado/file-line'
   Plug 'pbrisbin/vim-mkdir'
   call plug#end()
