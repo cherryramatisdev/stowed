@@ -37,9 +37,6 @@ set -gx FZF_DEFAULT_COMMAND 'fd --type f --strip-cwd-prefix'
 
 set -gx NIX_CONF_DIR "$HOME/.config/nix"
 
-# GraalVM setup
-set -gx GRAALVM_HOME "$HOME/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home"
-set -gx PATH "$GRAALVM_HOME/bin" $PATH
 
 # Aliases
 alias task="ultralist"
@@ -66,6 +63,7 @@ alias dcd="docker-compose down"
 alias b="bundle"
 alias ba="bundle add"
 alias be="bundle exec"
+alias s="websearch"
 
 # Git related
 alias ga="git add"
