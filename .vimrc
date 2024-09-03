@@ -267,6 +267,20 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:pandoc#formatting#mode = 'h' " A'
   let g:pandoc#formatting#textwidth = 72
 
+  let g:markdown_runners = {
+        \ '': getenv('SHELL'),
+        \ 'go': function('markdown_runner#RunGoBlock'),
+        \ 'js': 'node',
+        \ 'javascript': 'node',
+        \ 'ts': 'bun',
+        \ 'typescript': 'bun',
+        \ 'haskell': 'runghc',
+        \ 'vim': function("markdown_runner#RunVimBlock"),
+        \ }
+
+  autocmd FileType pandoc nmap <buffer> <silent> <leader>e :MarkdownEditBlock<CR>
+  autocmd FileType pandoc nmap <buffer> <silent> <leader>r :MarkdownRunnerInsert<CR>
+
   " golang
   let g:go_fmt_fail_silently = 0
   let g:go_fmt_command = 'goimports'
