@@ -11,6 +11,8 @@ set autoindent " (alpine)
 
 set noflash " (alpine-ish only)
 
+set completeopt=menuone,noinsert,popup
+
 " replace tabs with spaces automatically
 set expandtab " (alpine)
 
