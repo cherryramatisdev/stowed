@@ -9,6 +9,7 @@ onchange () {
   haschanged "${dir}"
   local count=$?
   if (( $count > 0 ));then
+		clear
     "$@"
   fi
 }
