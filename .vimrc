@@ -9,9 +9,13 @@ set nocompatible
 " automatically indent new lines
 set autoindent " (alpine)
 
-set noflash " (alpine-ish only)
+set completeopt+=popup
 
-set completeopt=menuone,noinsert,popup
+if has('nvim')
+  set guicursor=
+endif
+
+set signcolumn=yes
 
 " replace tabs with spaces automatically
 set expandtab " (alpine)
@@ -28,8 +32,10 @@ set autowrite
 " deactivate line numbers
 set nonumber
 
+set fillchars+=stl:-,stlnc:-
+
 set laststatus=2
-set statusline=%{repeat('-',winwidth(0)-24)}%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%
+set statusline=%=\ %f\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%
 
 " show command and insert mode
 set showmode
@@ -165,60 +171,9 @@ set background=dark
 " make gutter less annoying
 hi SignColumn ctermbg=NONE
 
-" base default color changes (gruvbox dark friendly)
-hi VertSplit ctermbg=darkgray ctermfg=0
-hi StatusLine ctermfg=0 ctermbg=darkgray
-hi StatusLineNC ctermfg=0 ctermbg=darkgray
-hi Normal ctermbg=NONE
-hi Special ctermfg=cyan
-hi LineNr ctermfg=darkgray ctermbg=NONE
-hi SpecialKey ctermfg=darkgray ctermbg=NONE
-hi ModeMsg ctermfg=darkgray cterm=NONE ctermbg=NONE
-hi MoreMsg ctermfg=darkgray ctermbg=NONE
-hi NonText ctermfg=darkgray ctermbg=NONE
-hi vimGlobal ctermfg=darkgray ctermbg=NONE
-hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
-hi Error ctermbg=234 ctermfg=darkred cterm=NONE
-hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
-hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
-hi Search ctermbg=236 ctermfg=darkred
-hi vimTodo ctermbg=236 ctermfg=darkred
-hi Todo ctermbg=236 ctermfg=darkred
-hi IncSearch ctermbg=236 cterm=NONE ctermfg=darkred
-hi MatchParen ctermbg=236 ctermfg=darkred
-
-" color overrides
-au FileType * hi StatusLine ctermfg=0 ctermbg=darkgray
-au FileType * hi StatusLineNC ctermfg=0 ctermbg=darkgray
-au FileType * hi Normal ctermbg=NONE
-au FileType * hi Special ctermfg=cyan
-au FileType * hi LineNr ctermfg=darkgray ctermbg=NONE
-au FileType * hi SpecialKey ctermfg=darkgray ctermbg=NONE
-au FileType * hi ModeMsg ctermfg=darkgray cterm=NONE ctermbg=NONE
-au FileType * hi MoreMsg ctermfg=darkgray ctermbg=NONE
-au FileType * hi NonText ctermfg=darkgray ctermbg=NONE
-au FileType * hi vimGlobal ctermfg=darkgray ctermbg=NONE
-au FileType * hi goComment ctermfg=darkgray ctermbg=NONE
-au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi Error ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi Search ctermbg=236 ctermfg=darkred
-au FileType * hi vimTodo ctermbg=236 ctermfg=darkred
-au FileType * hi Todo ctermbg=236 ctermfg=darkred
-au FileType * hi IncSearch ctermbg=236 cterm=NONE ctermfg=darkred
-au FileType * hi MatchParen ctermbg=236 ctermfg=darkred
-au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
-au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
-au FileType markdown,pandoc set tw=0
-au FileType markdown,pandoc set wrap
-au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
-au FileType yaml set sw=2
-au FileType bash set sw=2
-au FileType c set sw=8
-au FileType markdown,pandoc noremap j gj
-au FileType markdown,pandoc noremap k gk
-au FileType sh set noet
+au FileType * hi StatusLine ctermbg=NONE ctermfg=gray
+au FileType * hi VertSplit ctermbg=NONE ctermfg=gray
+au FileType * hi StatusLineNC ctermbg=NONE ctermfg=gray
 
 set cinoptions+=:0
 
@@ -227,41 +182,59 @@ nnoremap confe :e $HOME/.vimrc<CR>
 nnoremap confr :source $HOME/.vimrc<CR>
 
 " only load plugins if Plug detected
-if filereadable(expand("~/.vim/autoload/plug.vim"))
+if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " github.com/junegunn/vim-plug
 
   call plug#begin('~/.local/share/vim/plugins')
   " Theme
   Plug 'conradirwin/vim-bracketed-paste'
-  Plug 'morhetz/gruvbox'
+  Plug 'jeffkreeftmeijer/vim-dim'
 
   " Markdown/pandoc stuff
-  Plug 'vim-pandoc/vim-pandoc'
-  Plug 'rwxrob/vim-pandoc-syntax-simple'
-  Plug 'Chandlercjy/vim-markdown-edit-code-block', { 'for':'pandoc'}
+  Plug 'vim-pandoc/vim-pandoc', { 'for': 'pandoc' }
+  Plug 'rwxrob/vim-pandoc-syntax-simple', { 'for': 'pandoc' }
+  Plug 'Chandlercjy/vim-markdown-edit-code-block'
   Plug 'dbridges/vim-markdown-runner', {'for': 'pandoc'}
 
   " Coding
-  Plug 'dense-analysis/ale'
-  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-  Plug 'puremourning/vimspector'
+  Plug 'dense-analysis/ale', { 'for': ['typescript', 'go', 'haskell', 'rust'] }
+  Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 
   " Misc
+  Plug 'neovimhaskell/haskell-vim'
+  Plug 'andlrc/CTRLGGitBlame.vim'
   Plug 'bogado/file-line'
   Plug 'pbrisbin/vim-mkdir'
+  Plug 'tpope/vim-vinegar'
+  Plug 'Exafunction/codeium.vim'
+
+  if has('nvim')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  endif
   call plug#end()
 
   let g:ale_sign_error = '😡'
   let g:ale_sign_warning = '🙄'
   let g:ale_lint_on_enter = 0
   let g:ale_fix_on_save = 1
-  let g:ale_linters = {'typescript': ['eslint', 'tsserver']}
-  let g:ale_fixers = {'typescript': ['prettier']}
+  let g:ale_linters = {
+        \ 'typescript': ['eslint', 'tsserver'], 
+        \ 'go': ['gometalinter', 'gofmt', 'gobuild'], 
+        \ 'haskell': ['hls'],
+        \ 'rust': ['rust_analyzer']
+        \}
+  let g:ale_fixers = {'typescript': ['prettier'], 'rust': ['rustfmt']}
+  let g:ale_use_neovim_diagnostics_api = has('nvim')
 
-  autocmd FileType typescript nnoremap <buffer> <c-]> <cmd>ALEGoToDefinition<cr>
-  autocmd FileType typescript nnoremap <buffer> <c-w>] <c-w>v<cmd>ALEGoToDefinition<cr>
-  autocmd FileType typescript setlocal omnifunc=ale#completion#OmniFunc
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> <c-]> <cmd>ALEGoToDefinition<cr>
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> <c-w>] <c-w>v<cmd>ALEGoToDefinition<cr>
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> ]d <cmd>ALENextWrap<cr>
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> [d <cmd>ALEPreviousWrap<cr>
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> ga <cmd>ALECodeAction<cr>
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> K <cmd>ALEHover<cr>
+  autocmd FileType typescript,haskell,rust nnoremap <buffer> rn <cmd>ALERename<cr>
+  autocmd FileType typescript,haskell,rust setlocal omnifunc=ale#completion#OmniFunc
 
   " pandoc
   let g:pandoc#formatting#mode = 'h' " A'
@@ -306,6 +279,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "let g:go_gopls_analyses = { 'composites' : v:false }
   au FileType go nmap <leader>m ilog.Print("made")<CR><ESC>
   au FileType go nmap <leader>n iif err != nil {return err}<CR><ESC>
+
+  colorscheme dim
 else
   autocmd vimleavepre *.go !gofmt -w % " backup if fatih fails
 endif
@@ -318,24 +293,24 @@ augroup END
 
 " format perl on save
 if has("eval") " vim-tiny detection
-fun! s:Perltidy()
-  let l:pos = getcurpos()
-  silent execute '%!perltidy -i=2'
-  call setpos('.', l:pos)
-endfun
-"autocmd FileType perl autocmd BufWritePre <buffer> call s:Perltidy()
+  fun! s:Perltidy()
+    let l:pos = getcurpos()
+    silent execute '%!perltidy -i=2'
+    call setpos('.', l:pos)
+  endfun
+  "autocmd FileType perl autocmd BufWritePre <buffer> call s:Perltidy()
 endif
 
 " format shell on save
 if has("eval") " vim-tiny detection
-" TODO check for shfmt and shellcheck before defining
-" FIXME stop from blowing away file when there is shell error
-fun! s:FormatShell()
-  let l:pos = getcurpos()
-  "silent execute '%!shfmt' " FIXME: bug report to shfmt
-  call setpos('.', l:pos)
-endfun
-autocmd FileType sh autocmd BufWritePre <buffer> call s:FormatShell()
+  " TODO check for shfmt and shellcheck before defining
+  " FIXME stop from blowing away file when there is shell error
+  fun! s:FormatShell()
+    let l:pos = getcurpos()
+    "silent execute '%!shfmt' " FIXME: bug report to shfmt
+    call setpos('.', l:pos)
+  endfun
+  autocmd FileType sh autocmd BufWritePre <buffer> call s:FormatShell()
 endif
 
 " make Y consistent with D and C (yank til end)
@@ -357,24 +332,24 @@ imap <tab><tab> <c-x><c-o>
 
 "fix bork bash detection
 if has("eval")  " vim-tiny detection
-fun! s:DetectBash()
+  fun! s:DetectBash()
     if getline(1) == '#!/usr/bin/bash' || getline(1) == '#!/bin/bash'
-        set ft=bash
-        set shiftwidth=2
+      set ft=bash
+      set shiftwidth=2
     endif
-endfun
-autocmd BufNewFile,BufRead * call s:DetectBash()
+  endfun
+  autocmd BufNewFile,BufRead * call s:DetectBash()
 endif
 
 " displays all the syntax rules for current position, useful
 " when writing vimscript syntax plugins
 if has("syntax")
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
+  function! <SID>SynStack()
+    if !exists("*synstack")
+      return
+    endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+  endfunc
 endif
 
 
@@ -399,3 +374,21 @@ cabbrev vf <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? g:split_fuzzy_cmd : 'vf'
 " Better page down and page up
 noremap <C-n> <C-d>
 noremap <C-p> <C-b>
+
+if has('nvim')
+lua<<EOF
+local signs = { Error = "😡", Warn = "🙄" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "typescript", "tsx" },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {"ruby"},
+  },
+}
+EOF
+endif
