@@ -15,6 +15,7 @@ make sync
 echo "INstalling external binaries..."
 
 go install github.com/rwxrob/keg/cmd/keg@latest
+go install github.com/rwxrob/pomo/cmd/pomo@latest
 
 echo "Fish as the shell"
 
