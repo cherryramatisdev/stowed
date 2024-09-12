@@ -16,7 +16,7 @@ set -U fish_greeting
 
 # Env Vars
 set -gx OBSIDIAN_VAULT "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten/"
-set -gx EDITOR "vim"
+set -gx EDITOR "nvim"
 set -gx GIT_EDITOR "$EDITOR"
 set -gx PAGER "less"
 set -gx PATH "$HOME/scripts" $PATH
@@ -24,6 +24,7 @@ set -gx PATH "$HOME/.local/bin" $PATH
 set -gx PNPM_HOME "$HOME/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
 set -gx PATH "$HOME/.cargo/bin" $PATH
+set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 set -gx GOBIN "$HOME/.local/bin/"
 
@@ -64,14 +65,16 @@ alias b="bundle"
 alias ba="bundle add"
 alias be="bundle exec"
 alias s="websearch"
+alias vi="$EDITOR"
 
 # Git related
 alias ga="git add"
 alias gd="git diff"
 alias gst="git status"
-alias gs="git show"
+alias gs="git show --ext-diff"
 alias gsw="git switch"
 alias gswd="git switch develop"
+alias gswc="git switch -c"
 
 # Shell integrations
 function _has_binary
