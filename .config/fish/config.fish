@@ -70,11 +70,14 @@ alias vi="$EDITOR"
 # Git related
 alias ga="git add"
 alias gd="git diff"
+alias gds="git diff --staged"
 alias gst="git status"
 alias gs="git show --ext-diff"
 alias gsw="git switch"
 alias gswd="git switch develop"
 alias gswc="git switch -c"
+alias glog="git log"
+alias gco="git checkout"
 
 # Shell integrations
 function _has_binary

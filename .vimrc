@@ -207,7 +207,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'bogado/file-line'
   Plug 'pbrisbin/vim-mkdir'
   Plug 'tpope/vim-vinegar'
-  Plug 'Exafunction/codeium.vim'
+  " Plug 'Exafunction/codeium.vim'
 
   if has('nvim')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
