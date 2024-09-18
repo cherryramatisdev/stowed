@@ -1,4 +1,10 @@
 #!/bin/sh
-export KEG_CURRENT="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten"
+
+if [ "$(uname)" = "Linux" ]; then
+  export KEG_CURRENT="$HOME/git/zettelkasten"
+else
+  export KEG_CURRENT="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten"
+fi
+
 exec keg "$@"
 
