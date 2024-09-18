@@ -191,6 +191,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'conradirwin/vim-bracketed-paste'
   Plug 'jeffkreeftmeijer/vim-dim'
 
+  if has('nvim')
+    Plug 'f-person/auto-dark-mode.nvim'
+    Plug 'craftzdog/solarized-osaka.nvim'
+  endif
+
   " Markdown/pandoc stuff
   Plug 'vim-pandoc/vim-pandoc', { 'for': 'pandoc' }
   Plug 'rwxrob/vim-pandoc-syntax-simple', { 'for': 'pandoc' }
@@ -251,6 +256,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \ 'vim': function("markdown_runner#RunVimBlock"),
         \ }
 
+  autocmd FileType pandoc setlocal spelllang=pt_br,en_us
   autocmd FileType pandoc nmap <buffer> <silent> <leader>e :MarkdownEditBlock<CR>
   autocmd FileType pandoc nmap <buffer> <silent> <leader>r :MarkdownRunnerInsert<CR>
 
@@ -390,5 +396,23 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = {"ruby"},
   },
 }
+
+local auto_dark_mode = require('auto-dark-mode')
+
+auto_dark_mode.setup({
+	update_interval = 1000,
+	set_dark_mode = function()
+    vim.cmd [[
+    set background=dark
+    colorscheme solarized-osaka-storm
+    ]]
+	end,
+	set_light_mode = function()
+    vim.cmd [[
+    set background=light
+    colorscheme solarized-osaka-day
+    ]]
+	end,
+})
 EOF
 endif
