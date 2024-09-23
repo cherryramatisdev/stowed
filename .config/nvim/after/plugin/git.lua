@@ -1,3 +1,4 @@
+require('mini.notify').setup{}
 require('mini.git').setup{}
 
 vim.keymap.set({'n', 'x'}, '<leader>gs', MiniGit.show_at_cursor)
