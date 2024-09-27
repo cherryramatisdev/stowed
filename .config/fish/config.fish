@@ -16,7 +16,7 @@ set -U fish_greeting
 
 # Env Vars
 set -gx OBSIDIAN_VAULT "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten/"
-set -gx EDITOR "nvim"
+set -gx EDITOR "vim"
 set -gx GIT_EDITOR "$EDITOR"
 set -gx PAGER "less"
 set -gx PATH "$HOME/scripts" $PATH
@@ -47,7 +47,7 @@ alias ll="ls --color -l"
 alias la="ls --color -lha"
 alias l="ls --color"
 alias c="clear"
-alias f="fzf --bind='enter:execute@vim {}@+abort'"
+alias f="fzf --bind='enter:execute@$EDITOR {}@+abort'"
 alias ca="cargo"
 # alias "?"="websearch"
 alias gg="git grep -n"
@@ -74,7 +74,7 @@ alias gds="git diff --staged"
 alias gst="git status"
 alias gs="git show --ext-diff"
 alias gsw="git switch"
-alias gswd="git switch develop"
+alias gswm="git switch main"
 alias gswc="git switch -c"
 alias glog="git log"
 alias gco="git checkout"
@@ -101,7 +101,7 @@ if _has_binary "asdf"
 end
 
 if _has_binary "mise"
-    eval (mise activate fish)
+    mise activate fish | source
 end
 
 # bun

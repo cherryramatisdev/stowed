@@ -38,13 +38,6 @@ if ($package_manager eq "none") {
   exit 1;
 }
 
-my @actions = `jq -r '.scripts | keys[]' package.json`;
-
-if ($ENV{COMP_LINE}) {
-  map {/^$ARGV[1]/ and say $_} @actions;
-  exit 0;
-}
-
 system("$package_manager @ARGV");
 
 exit 0;

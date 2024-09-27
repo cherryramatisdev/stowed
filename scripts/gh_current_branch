@@ -13,4 +13,4 @@ if (! -d "$cwd/.git") {
 my $current_branch = `git -C "$cwd" rev-parse --abbrev-ref HEAD`;
 chomp $current_branch;
 
-say "BRANCH: [$current_branch]";
+say "[$current_branch]";
