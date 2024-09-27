@@ -228,7 +228,7 @@ git:
     useConfig: false
 
     # e.g. 'difft --color=always'
-    externalDiffCommand: "difft --color=always"
+    externalDiffCommand: ""
 
   # Config relating to committing
   commit:
