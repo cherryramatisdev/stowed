@@ -34,6 +34,12 @@ require("dressing").setup {
 
 require("telescope").setup {
   defaults = {
+    layout_strategy = "bottom_pane",
+    layout_config = {
+      width = 0.75,
+      height = 0.30,
+      preview_cutoff = 120,
+    },
     mappings = {
       i = {
         ["<C-h>"] = "which_key",
@@ -44,7 +50,7 @@ require("telescope").setup {
   },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown(),
+      require("telescope.themes").get_ivy(),
     },
   },
 }
