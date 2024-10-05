@@ -19,7 +19,8 @@ set -gx OBSIDIAN_VAULT "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Docum
 set -gx EDITOR "vim"
 set -gx GIT_EDITOR "$EDITOR"
 set -gx PAGER "less"
-set -gx PATH "$HOME/scripts" $PATH
+set -gx SCRIPTS "$HOME/scripts"
+set -gx PATH $SCRIPTS $PATH
 set -gx PATH "$HOME/.local/bin" $PATH
 set -gx PNPM_HOME "$HOME/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
@@ -40,7 +41,6 @@ set -gx NIX_CONF_DIR "$HOME/.config/nix"
 
 
 # Aliases
-alias task="ultralist"
 alias t="tmux"
 alias ls="ls --color"
 alias ll="ls --color -l"
@@ -51,7 +51,7 @@ alias f="fzf --bind='enter:execute@$EDITOR {}@+abort'"
 alias ca="cargo"
 # alias "?"="websearch"
 alias gg="git grep -n"
-alias gl="~/scripts/gup"
+alias gl="$SCRIPTS/gup"
 alias postgresup="docker run --rm --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e TZ=America/Sao_Paulo -d postgres"
 alias postgresdown="docker stop postgres"
 alias postgresconnect="docker exec -it postgres psql -U postgres"
@@ -78,6 +78,8 @@ alias gswm="git switch main"
 alias gswc="git switch -c"
 alias glog="git log"
 alias gco="git checkout"
+alias gsa="git submodule add"
+alias gcv="vim +Gapply"
 
 # Shell integrations
 function _has_binary

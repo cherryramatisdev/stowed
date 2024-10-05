@@ -1,8 +1,8 @@
 #!/bin/sh
 
-touch ~/Scripts/$1
-chmod +x ~/Scripts/$1
+touch $SCRIPTS/$1
+chmod +x $SCRIPTS/$1
 
-echo "#!/bin/sh" >> ~/Scripts/$1
+echo "#!/bin/sh" >> $SCRIPTS/$1
 
-$EDITOR ~/Scripts/$1
+$EDITOR $SCRIPTS/$1

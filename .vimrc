@@ -54,6 +54,10 @@ set smartindent
 
 set smarttab
 
+if v:version >= 900
+  set wildoptions=pum,fuzzy
+endif
+
 if v:version >= 800
   " stop vim from silently messing with files that it shouldn't
   set nofixendofline
@@ -181,7 +185,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   call plug#begin('~/.local/share/vim/plugins')
   " Theme
   Plug 'conradirwin/vim-bracketed-paste'
-  Plug 'jeffkreeftmeijer/vim-dim'
+  Plug 'ewilazarus/preto'
 
   " Markdown/pandoc stuff
   Plug 'vim-pandoc/vim-pandoc', { 'for': 'pandoc' }

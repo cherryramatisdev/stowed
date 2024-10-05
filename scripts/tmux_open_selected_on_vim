@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 
-pbcopy
+copy_cmd=""
+paste_cmd=""
+
+if [[ "$(uname)" == "Linux" ]]; then
+	copy_cmd="wl-copy"
+	paste_cmd="wl-paste"
+else
+	copy_cmd="pbcopy"
+	paste_cmd="pbpaste"
+fi
+
+eval "$copy_cmd"
 
 pane_count=$(tmux list-panes | wc -l)
 
@@ -8,10 +19,10 @@ edit() {
 	local current_pane="$(tmux list-panes -F "#{pane_active} #{pane_pid} #{pane_current_command}" | grep "^1" | awk '{print $3}')"
 
 	if [ "$current_pane" = "nvim" ] || [ "$current_pane" = "nvi" ] ||  [ "$current_pane" = "Vim" ] || [ "$current_pane" = "vim" ]; then
-		tmux send-keys ":e $(pbpaste)" Enter
+		tmux send-keys ":e $(eval "$paste_cmd")" Enter
 	else
 		tmux send-keys -X cancel
-		tmux send-keys "vi $(pbpaste)" Enter
+		tmux send-keys "vi $(eval "$paste_cmd")" Enter
 	fi
 }
 

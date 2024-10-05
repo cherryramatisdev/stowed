@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 
-pbcopy
+copy_cmd=""
+paste_cmd=""
 
-if [[ "$(pbpaste)" =~ ^[0-9a-fA-F]{7}$ ]]; then
-  tmux send-keys "git browse $(pbpaste)" Enter
+if [[ "$(uname)" == "Linux" ]]; then
+	copy_cmd="wl-copy"
+	paste_cmd="wl-paste"
 else
-  tmux send-keys "open $(pbpaste)" Enter
+	copy_cmd="pbcopy"
+	paste_cmd="pbpaste"
+fi
+
+eval "$copy_cmd"
+
+if [[ "$(eval "$paste_cmd")" =~ ^[0-9a-fA-F]{7}$ ]]; then
+  tmux send-keys "git browse $(eval "$paste_cmd")" Enter
+else
+  tmux send-keys "open $(eval "$paste_cmd")" Enter
 fi

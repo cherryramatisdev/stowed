@@ -1,0 +1,43 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use v5.14;
+
+# Function to check if the input is a URL
+sub is_url {
+    # Regular expression to match a URL
+    if ($_[0] =~ m{^(https?|ftp)://[^\s/\$.?#].[^\s]*$}i) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+sub run {
+    say "Runing $_[0]";
+    system("$_[0]");
+}
+
+# Main program
+if (@ARGV == 0) {
+    die "Usage: $0 <string1> <string2> ... <stringN>\n";
+}
+
+my $input = join(' ', @ARGV);
+
+
+if ($input =~ /list=([^&]+)/) {
+    my ($code) = $input =~ /list=([^&]+)/;
+
+    run("mpv --no-audio-display --ytdl-format=bestaudio \"https://www.youtube.com/playlist?list=$code\"");
+    exit 0;
+}
+
+if (is_url($input)) {
+    run("mpv --no-audio-display --ytdl-format=bestaudio \"$input\"");
+    exit 0
+}
+
+run("mpv --no-audio-display --ytdl-format=bestaudio \"ytdl://ytsearch:$input\"");

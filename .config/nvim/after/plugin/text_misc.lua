@@ -1,10 +1,10 @@
-require('mini.pairs').setup()
-require('mini.ai').setup()
-require('mini.completion').setup()
-require('mini.splitjoin').setup()
-require('mini.statusline').setup()
+require("mini.pairs").setup()
+require("mini.ai").setup()
+require("mini.completion").setup()
+require("mini.splitjoin").setup()
+require("mini.statusline").setup()
 
-require('mini.basics').setup {
+require("mini.basics").setup {
   -- Options. Set to `false` to disable.
   options = {
     -- Basic options ('number', 'ignorecase', and many more)
@@ -14,7 +14,7 @@ require('mini.basics').setup {
     extra_ui = true,
 
     -- Presets for window borders ('single', 'double', ...)
-    win_borders = 'default',
+    win_borders = "default",
   },
 
   -- Mappings. Set to `false` to disable.
@@ -46,32 +46,32 @@ require('mini.basics').setup {
   silent = false,
 }
 
-require('mini.bracketed').setup{}
+require("mini.bracketed").setup {}
 
-MiniDeps.add({source = 'JoosepAlviste/nvim-ts-context-commentstring'})
+MiniDeps.add { source = "JoosepAlviste/nvim-ts-context-commentstring" }
 
-require('mini.comment').setup {
+require("mini.comment").setup {
   options = {
     custom_commentstring = function()
-      return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
+      return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
     end,
   },
 }
 
-require('mini.surround').setup {
+require("mini.surround").setup {
   custom_surroundings = nil,
   highlight_duration = 500,
   mappings = {
-    add = 'ys',
-    delete = 'ds',
-    find = '',
-    find_left = '',
-    highlight = '', -- Highlight surrounding
-    replace = 'cs', -- Replace surrounding
-    update_n_lines = '', -- Update `n_lines`
+    add = "ys",
+    delete = "ds",
+    find = "",
+    find_left = "",
+    highlight = "", -- Highlight surrounding
+    replace = "cs", -- Replace surrounding
+    update_n_lines = "", -- Update `n_lines`
 
-    suffix_last = 'l', -- Suffix to search with "prev" method
-    suffix_next = 'n', -- Suffix to search with "next" method
+    suffix_last = "l", -- Suffix to search with "prev" method
+    suffix_next = "n", -- Suffix to search with "next" method
   },
 
   -- Number of lines within which surrounding is searched
@@ -86,7 +86,7 @@ require('mini.surround').setup {
   -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
   -- 'cover_or_nearest', 'next', 'prev', 'nearest'. For more details,
   -- see `:h MiniSurround.config`.
-  search_method = 'cover',
+  search_method = "cover",
 
   -- Whether to disable showing non-error feedback
   silent = false,
