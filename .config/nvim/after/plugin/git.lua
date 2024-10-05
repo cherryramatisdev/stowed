@@ -2,13 +2,13 @@ require("mini.notify").setup {}
 require("mini.git").setup {}
 
 MiniDeps.add {
-  source = "NeogitOrg/neogit",
-  depends = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+  source = "kdheepak/lazygit.nvim",
+  depends = {
+    "nvim-lua/plenary.nvim",
+  },
 }
 
-require("neogit").setup {}
-
-vim.keymap.set("n", "<leader>gs", ":Neogit<CR>")
+vim.keymap.set("n", "<leader>g", ":LazyGit<cr>", { desc = "Open LazyGit" })
 
 vim.cmd [[
 au FileType git,diff setlocal foldmethod=expr foldexpr=v:lua.MiniGit.diff_foldexpr() foldlevel=0
