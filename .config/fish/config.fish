@@ -16,7 +16,7 @@ set -U fish_greeting
 
 # Env Vars
 set -gx OBSIDIAN_VAULT "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/zettelkasten/Zettelkasten/"
-set -gx EDITOR "vim"
+set -gx EDITOR "nvim"
 set -gx GIT_EDITOR "$EDITOR"
 set -gx PAGER "less"
 set -gx SCRIPTS "$HOME/scripts"
