@@ -1,5 +1,6 @@
 cask "nikitabobko/tap/aerospace"
 brew "ultralist"
+cask "kitty"
 brew "tig"
 brew "lazygit"
 brew "difftastic"
