@@ -1,55 +1,9 @@
 MiniDeps.add {
-  source = "rose-pine/neovim",
-  name = "rose-pine",
+  source = "slugbyte/lackluster.nvim",
 }
 
-require("rose-pine").setup {
-  variant = "auto",
-  dark_variant = "main",
-  dim_inactive_windows = true,
-  extend_background_behind_borders = true,
-  enable = {
-    terminal = true,
-    legacy_highlights = false,
-    migrations = true,
-  },
-  styles = {
-    bold = true,
-    italic = true,
-    transparency = false,
-  },
-  groups = {
-    border = "muted",
-    link = "iris",
-    panel = "surface",
+vim.cmd.colorscheme "lackluster-hack"
 
-    error = "love",
-    hint = "iris",
-    info = "foam",
-    note = "pine",
-    todo = "rose",
-    warn = "gold",
+vim.cmd.highlight "StatusLine guibg=NONE"
 
-    git_add = "foam",
-    git_change = "rose",
-    git_delete = "love",
-    git_dirty = "rose",
-    git_ignore = "muted",
-    git_merge = "iris",
-    git_rename = "pine",
-    git_stage = "iris",
-    git_text = "rose",
-    git_untracked = "subtle",
-
-    h1 = "iris",
-    h2 = "foam",
-    h3 = "rose",
-    h4 = "gold",
-    h5 = "pine",
-    h6 = "foam",
-  },
-}
-
-vim.cmd.colorscheme "rose-pine"
-
-vim.cmd.highlight("Normal", "guibg=black")
+-- vim.cmd.highlight("Normal", "guibg=black")

@@ -2,7 +2,7 @@ require("mini.pairs").setup()
 require("mini.ai").setup()
 require("mini.completion").setup()
 require("mini.splitjoin").setup()
-require("mini.statusline").setup()
+-- require("mini.statusline").setup()
 
 require("mini.basics").setup {
   -- Options. Set to `false` to disable.
