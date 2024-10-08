@@ -90,9 +90,9 @@ if _has_binary "zoxide"
     eval (zoxide init fish)
 end
 
-# if _has_binary "fzf"
-#   fzf --fish | source
-# end
+if _has_binary "fzf"
+  fzf --fish | source
+end
 
 if _has_binary "dstask"
     eval (dstask fish-completion)
