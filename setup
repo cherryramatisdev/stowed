@@ -25,3 +25,9 @@ echo $(which fish) | sudo tee -a /etc/shells
 chsh -s $(which fish)
 
 echo "REstart and be happy"
+
+echo "The youtube experience"
+
+echo "Install mpv and ytdl"
+
+echo "Install ytfzf: https://github.com/pystardust/ytfzf?tab=readme-ov-file#Dependencies"
