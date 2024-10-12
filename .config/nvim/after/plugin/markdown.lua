@@ -2,6 +2,18 @@ MiniDeps.add {
   source = "jbyuki/venn.nvim",
 }
 
+MiniDeps.add {
+  source = "OXY2DEV/markview.nvim",
+  depends = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
+  },
+}
+
+require("markview").setup {
+  hybrid_modes = { "n", "i", "v" },
+}
+
 -- venn.nvim: enable or disable keymappings
 local function toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
