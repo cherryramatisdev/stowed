@@ -1,9 +1,9 @@
 MiniDeps.add {
-  source = "slugbyte/lackluster.nvim",
+  source = "mellow-theme/mellow.nvim",
 }
 
-vim.cmd.colorscheme "lackluster-hack"
+vim.cmd.colorscheme "mellow"
 
 vim.cmd.highlight "StatusLine guibg=NONE"
 
--- vim.cmd.highlight("Normal", "guibg=black")
+vim.cmd.highlight("Normal", "guibg=black")
